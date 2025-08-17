@@ -7,7 +7,7 @@
 EXPECTED_SHA256_BINARY_BASE64='c56a7fc499669c37391f61b72c796a60fc5bb01ee88bf5da25547684c1a438a3  ./public_key_binary_base64encoded.gpg'
 
 # echo environment var into file(s)
-echo $GPG_PUBLIC_KEY_BINARY_BASE64 > ./public_key_binary_base64encoded.gpg
+echo "$GPG_PUBLIC_KEY_BINARY_BASE64" > ./public_key_binary_base64encoded.gpg
 
 # calculate sha256 hash of file(s)
 calculated_sha256_binary_base64=$(shasum -a 256 ./public_key_binary_base64encoded.gpg)
