@@ -4,10 +4,6 @@ terraform {
       source  = "hashicorp/aws"
       version = "6.8.0"
     }
-    local = {
-      source  = "hashicorp/local"
-      version = "2.5.3"
-    }
   }
   required_version = ">= 1.12.2"
 }

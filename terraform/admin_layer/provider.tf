@@ -8,5 +8,3 @@ provider "aws" {
     }
   }
 }
-
-provider "local" {}
