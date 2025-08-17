@@ -2,7 +2,6 @@ data "aws_iam_policy" "admin_access_policy" {
   name = "AdministratorAccess"
 }
 
-#trivy:ignore:AVD-AWS-0123 (MEDIUM): Multi-Factor authentication is not enforced for group
 resource "aws_iam_group" "admin_access" {
   name = "ulfiacAdminAccess"
 }
