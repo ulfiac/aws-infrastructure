@@ -1,6 +1,6 @@
 #trivy:ignore:AVD-AWS-0062 (MEDIUM): Password policy allows a maximum password age of greater than 90 days.
 resource "aws_iam_account_password_policy" "password_policy" {
-  allow_users_to_change_password = true
+  allow_users_to_change_password = false
   hard_expiry                    = false
   max_password_age               = 180
   minimum_password_length        = 42

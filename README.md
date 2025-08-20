@@ -59,3 +59,5 @@ Bootstrap a new AWS account.
     - https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/control-access-billing.html
     - https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/managed-policies.html
     - https://repost.aws/knowledge-center/iam-billing-access
+3. enforcing mfa
+    - https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_examples_aws_my-sec-creds-self-manage.html
