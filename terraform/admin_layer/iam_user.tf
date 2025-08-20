@@ -6,7 +6,7 @@ resource "aws_iam_user" "admin_user" {
 resource "aws_iam_user_login_profile" "admin_user" {
   pgp_key                 = data.local_file.pgp_key.content
   password_length         = 42
-  password_reset_required = true
+  password_reset_required = false
   user                    = aws_iam_user.admin_user.name
 }
 
