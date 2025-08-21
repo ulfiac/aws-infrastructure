@@ -1,4 +1,4 @@
-data "aws_iam_policy_document" "assume_role_policy" {
+data "aws_iam_policy_document" "assume_role" {
   statement {
     effect  = "Allow"
     actions = ["sts:AssumeRole"]
@@ -16,27 +16,27 @@ data "aws_iam_policy_document" "assume_role_policy" {
   }
 }
 
-resource "aws_iam_role" "admin_role" {
-  name               = "ulfiacAdmin"
-  assume_role_policy = data.aws_iam_policy_document.assume_role_policy.json
+resource "aws_iam_role" "admin" {
+  name               = local.iam_role_name_admin
+  assume_role_policy = data.aws_iam_policy_document.assume_role.json
 }
 
 resource "aws_iam_role_policy_attachment" "admin" {
   policy_arn = data.aws_iam_policy.admin_access.arn
-  role       = aws_iam_role.admin_role.name
+  role       = aws_iam_role.admin.name
 }
 
 resource "aws_iam_role_policy_attachment" "billing" {
   policy_arn = data.aws_iam_policy.billing.arn
-  role       = aws_iam_role.admin_role.name
+  role       = aws_iam_role.admin.name
 }
 
-resource "aws_iam_role" "power_user_role" {
-  name               = "ulfiacPowerUser"
-  assume_role_policy = data.aws_iam_policy_document.assume_role_policy.json
+resource "aws_iam_role" "power_user" {
+  name               = local.iam_role_name_poweruser
+  assume_role_policy = data.aws_iam_policy_document.assume_role.json
 }
 
 resource "aws_iam_role_policy_attachment" "power_user" {
   policy_arn = data.aws_iam_policy.power_user_access.arn
-  role       = aws_iam_role.power_user_role.name
+  role       = aws_iam_role.power_user.name
 }

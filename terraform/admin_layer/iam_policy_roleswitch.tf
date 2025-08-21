@@ -3,13 +3,13 @@ data "aws_iam_policy_document" "roleswitch" {
     effect  = "Allow"
     actions = ["sts:AssumeRole"]
     resources = [
-      aws_iam_role.admin_role.arn,
-      aws_iam_role.power_user_role.arn,
+      aws_iam_role.admin.arn,
+      aws_iam_role.power_user.arn,
     ]
   }
 }
 
 resource "aws_iam_policy" "roleswitch" {
-  name   = "roleswitch"
+  name   = local.iam_policy_name_roleswitch
   policy = data.aws_iam_policy_document.roleswitch.json
 }

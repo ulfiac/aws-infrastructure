@@ -149,6 +149,6 @@ data "aws_iam_policy_document" "enforce_mfa" {
 }
 
 resource "aws_iam_policy" "enforce_mfa" {
-  name   = "enforce_mfa"
+  name   = local.iam_policy_name_mfa
   policy = data.aws_iam_policy_document.enforce_mfa.json
 }
