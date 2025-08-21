@@ -10,7 +10,7 @@ resource "aws_iam_user_login_profile" "regular_user" {
   user                    = aws_iam_user.regular_user.name
 }
 
-resource "aws_iam_user_group_membership" "default_group" {
+resource "aws_iam_user_group_membership" "regular_user" {
   groups = [aws_iam_group.default_group.name]
   user   = aws_iam_user.regular_user.name
 }

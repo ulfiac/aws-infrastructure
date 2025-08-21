@@ -1,13 +1,12 @@
 data "aws_iam_policy_document" "assume_role" {
   statement {
+    sid     = "AllowAssumeRoleIfMFA"
     effect  = "Allow"
     actions = ["sts:AssumeRole"]
-
     principals {
-      identifiers = ["arn:aws:iam::${local.account_id}:root"]
+      identifiers = [aws_iam_user.regular_user.arn]
       type        = "AWS"
     }
-
     condition {
       test     = "BoolIfExists"
       variable = "aws:MultiFactorAuthPresent"
