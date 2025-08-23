@@ -61,8 +61,8 @@ env:
   TF_LOG_PROVIDER: OFF
   TF_LOG_PATH: ./terraform.log
   TF_VAR_aws_region: ${{ inputs.aws_region }}
-  TF_VAR_oidc_gha_iam_role_name: ${{ vars.OIDC_GHA_IAM_ROLE_NAME }}
-  TF_VAR_oidc_gha_provider_hostname: ${{ vars.OIDC_GHA_PROVIDER_HOSTNAME }}
+  TF_VAR_oidc_role_to_assume: ${{ vars.OIDC_ROLE_TO_ASSUME }}
+  TF_VAR_oidc_provider_hostname: ${{ vars.OIDC_PROVIDER_HOSTNAME }}
   TF_VAR_tf_state_s3_bucket_name: ${{ vars.TF_STATE_S3_BUCKET_NAME }}
 
 permissions:
@@ -100,7 +100,7 @@ jobs:
         if: ${{ inputs.auth == 'oidc' }}
         uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # 4.0.2
         with:
-          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/${{ vars.OIDC_GHA_IAM_ROLE_NAME }}
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/${{ vars.OIDC_ROLE_TO_ASSUME }}
           aws-region: ${{ inputs.aws_region }}
 
       - name: configure aws credentials with keys
@@ -132,8 +132,8 @@ jobs:
       - name: import root layer
         if: ${{ inputs.terraform_layer == 'root_layer' }}
         env:
-          OIDC_GHA_IAM_ROLE_NAME: ${{ vars.OIDC_GHA_IAM_ROLE_NAME }}
-          OIDC_GHA_PROVIDER_HOSTNAME: ${{ vars.OIDC_GHA_PROVIDER_HOSTNAME }}
+          OIDC_PROVIDER_HOSTNAME: ${{ vars.OIDC_PROVIDER_HOSTNAME }}
+          OIDC_ROLE_TO_ASSUME: ${{ vars.OIDC_ROLE_TO_ASSUME }}
           TF_STATE_S3_BUCKET_NAME: ${{ vars.TF_STATE_S3_BUCKET_NAME }}
         run: ../../scripts/import_root_layer.sh
 

@@ -1,17 +1,17 @@
-data "aws_iam_policy_document" "assume_role_policy_oidc_gha_admin" {
+data "aws_iam_policy_document" "assume_role_policy_oidc" {
   statement {
     actions = ["sts:AssumeRoleWithWebIdentity"]
     effect  = "Allow"
 
     condition {
       test     = "StringEquals"
-      variable = "token.actions.githubusercontent.com:aud"
+      variable = "${var.oidc_provider_hostname}:aud"
       values   = ["sts.amazonaws.com"]
     }
 
     condition {
       test     = "StringLike"
-      variable = "token.actions.githubusercontent.com:sub"
+      variable = "${var.oidc_provider_hostname}:sub"
       values   = ["repo:ulfiac/aws-bootstrap:*"]
     }
 
@@ -22,13 +22,13 @@ data "aws_iam_policy_document" "assume_role_policy_oidc_gha_admin" {
   }
 }
 
-resource "aws_iam_role" "oidc_gha_admin" {
-  assume_role_policy = data.aws_iam_policy_document.assume_role_policy_oidc_gha_admin.json
-  name               = var.oidc_gha_iam_role_name
+resource "aws_iam_role" "oidc" {
+  assume_role_policy = data.aws_iam_policy_document.assume_role_policy_oidc.json
+  name               = var.oidc_role_to_assume
 }
 
-resource "aws_iam_role_policy_attachments_exclusive" "oidc_gha_admin" {
-  role_name = aws_iam_role.oidc_gha_admin.name
+resource "aws_iam_role_policy_attachments_exclusive" "oidc" {
+  role_name = aws_iam_role.oidc.name
   policy_arns = [
     data.aws_iam_policy.admin_access.arn,
     data.aws_iam_policy.billing.arn

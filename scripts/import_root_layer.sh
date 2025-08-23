@@ -2,9 +2,9 @@
 set -euo pipefail
 
 # Required environment variables:
-#   OIDC_GHA_IAM_ROLE_NAME      - Name of the IAM role for OIDC authentication
-#   OIDC_GHA_PROVIDER_HOSTNAME  - Hostname of the OIDC provider for GitHub Actions
-#   TF_STATE_S3_BUCKET_NAME     - Name of the S3 bucket for Terraform state
+#   OIDC_PROVIDER_HOSTNAME  - Hostname of the OIDC provider for GitHub Actions
+#   OIDC_ROLE_TO_ASSUME     - Name of the IAM role to assume for OIDC authentication
+#   TF_STATE_S3_BUCKET_NAME - Name of the S3 bucket for Terraform state
 
 # check versions
 aws --version
@@ -24,11 +24,11 @@ AWS_ACCOUNT_ID="$(aws sts get-caller-identity --query Account --output text)"
 # if it does not, skip the import
 # grep -q will return exit code 0 if the pattern is found, otherwise it returns 1
 function import_oidc_provider() {
-  if aws iam list-open-id-connect-providers | grep -q "$OIDC_GHA_PROVIDER_HOSTNAME" > /dev/null 2>&1; then
-    echo -e "\n\nOIDC provider '$OIDC_GHA_PROVIDER_HOSTNAME' exists. Importing...\n\n"
-    terraform import 'aws_iam_openid_connect_provider.oidc_gha' "arn:aws:iam::${AWS_ACCOUNT_ID}:oidc-provider/${OIDC_GHA_PROVIDER_HOSTNAME}"
+  if aws iam list-open-id-connect-providers | grep -q "$OIDC_PROVIDER_HOSTNAME" > /dev/null 2>&1; then
+    echo -e "\n\nOIDC provider '$OIDC_PROVIDER_HOSTNAME' exists. Importing...\n\n"
+    terraform import 'aws_iam_openid_connect_provider.oidc_gha' "arn:aws:iam::${AWS_ACCOUNT_ID}:oidc-provider/${OIDC_PROVIDER_HOSTNAME}"
   else
-    echo -e "\n\nOIDC provider '$OIDC_GHA_PROVIDER_HOSTNAME' does not exist.  No import needed.\n\n"
+    echo -e "\n\nOIDC provider '$OIDC_PROVIDER_HOSTNAME' does not exist.  No import needed.\n\n"
   fi
 }
 
@@ -37,12 +37,12 @@ function import_oidc_provider() {
 # if it does, import the resources
 # if it does not, skip the import
 function import_iam_role() {
-  if aws iam get-role --role-name "$OIDC_GHA_IAM_ROLE_NAME" > /dev/null 2>&1; then
-    echo -e "\n\nIAM role '$OIDC_GHA_IAM_ROLE_NAME' exists. Importing...\n\n"
-    terraform import 'aws_iam_role.oidc_gha_admin' "$OIDC_GHA_IAM_ROLE_NAME"
-    terraform import 'aws_iam_role_policy_attachments_exclusive.oidc_gha_admin' "$OIDC_GHA_IAM_ROLE_NAME"
+  if aws iam get-role --role-name "$OIDC_ROLE_TO_ASSUME" > /dev/null 2>&1; then
+    echo -e "\n\nIAM role '$OIDC_ROLE_TO_ASSUME' exists. Importing...\n\n"
+    terraform import 'aws_iam_role.oidc' "$OIDC_ROLE_TO_ASSUME"
+    terraform import 'aws_iam_role_policy_attachments_exclusive.oidc' "$OIDC_ROLE_TO_ASSUME"
   else
-    echo -e "\n\nIAM role '$OIDC_GHA_IAM_ROLE_NAME' does not exist.  No import needed.\n\n"
+    echo -e "\n\nIAM role '$OIDC_ROLE_TO_ASSUME' does not exist.  No import needed.\n\n"
   fi
 }
 

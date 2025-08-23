@@ -3,12 +3,12 @@ variable "aws_region" {
   type        = string
 }
 
-variable "oidc_gha_iam_role_name" {
+variable "oidc_role_to_assume" {
   description = "The name of the IAM role to be assumed by OIDC-auth'ed Github Actions."
   type        = string
 }
 
-variable "oidc_gha_provider_hostname" {
+variable "oidc_provider_hostname" {
   description = "The hostname of the OIDC provider for Github Actions."
   type        = string
 }
