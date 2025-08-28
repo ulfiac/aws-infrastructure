@@ -35,13 +35,13 @@ resource "aws_s3_bucket_lifecycle_configuration" "logging" {
   }
 }
 
-#trivy:ignore:AVD-AWS-0132 (HIGH): Bucket does not encrypt data with a customer managed key.
 resource "aws_s3_bucket_server_side_encryption_configuration" "logging" {
   bucket = aws_s3_bucket.logging.id
 
   rule {
     apply_server_side_encryption_by_default {
-      sse_algorithm = "AES256"
+      kms_master_key_id = aws_kms_key.logging.arn
+      sse_algorithm     = "aws:kms"
     }
   }
 }
@@ -85,7 +85,7 @@ data "aws_iam_policy_document" "logging" {
     condition {
       test     = "StringNotEquals"
       variable = "s3:x-amz-server-side-encryption"
-      values   = ["AES256"]
+      values   = ["aws:kms"]
     }
 
     principals {
@@ -94,21 +94,25 @@ data "aws_iam_policy_document" "logging" {
     }
   }
 
+  # https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingKMSEncryption.html
+  # https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingKMSEncryption.html#require-sse-kms
+  # https://docs.aws.amazon.com/AmazonS3/latest/userguide/example-bucket-policies.html#example-bucket-policies-encryption
   statement {
-    sid       = "DenyAbsentEncryptionHeader"
+    sid       = "DenyAbsentOrIncorrectEncryptionHeader"
     actions   = ["s3:PutObject"]
     effect    = "Deny"
     resources = ["${aws_s3_bucket.logging.arn}/*"]
 
-    condition {
-      test     = "Null"
-      variable = "s3:x-amz-server-side-encryption"
-      values   = ["true"]
-    }
-
     principals {
       type        = "*"
       identifiers = ["*"]
+    }
+
+    # deny if kms cmk arn is absent or incorrect
+    condition {
+      test     = "StringNotEquals"
+      variable = "s3:x-amz-server-side-encryption-aws-kms-key-id"
+      values   = [aws_kms_key.logging.arn]
     }
   }
 
