@@ -115,6 +115,20 @@ data "aws_iam_policy_document" "cmk" {
     }
   }
 
+  statement {
+    sid    = "Allow SNS to use the key"
+    effect = "Allow"
+    actions = [
+      "kms:GenerateDataKey*",
+      "kms:Decrypt",
+    ]
+    resources = ["*"]
+    principals {
+      identifiers = ["sns.amazonaws.com"]
+      type        = "Service"
+    }
+  }
+
   # is a statement for user administration needed (role-switch-admin role)?
 
 }

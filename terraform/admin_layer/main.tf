@@ -5,7 +5,9 @@ locals {
   cloudtrail_name          = "multi-region-trail"
   cloudtrail_s3_key_prefix = "cloudtrail"
 
-  cloudwatch_log_group_name = "/aws/cloudtrail/${local.cloudtrail_name}"
+  cloudwatch_log_group_name                   = "/aws/cloudtrail/${local.cloudtrail_name}"
+  cloudwatch_log_metric_filter_name_root_user = "root-user-activity"
+  cloudwatch_metric_alarm_name_root_user      = "root-user-activity"
 
   iam_group_name                           = "default-group"
   iam_policy_name_cloudtrail_to_cloudwatch = "cloudtrail-to-cloudwatch"
@@ -17,4 +19,6 @@ locals {
   iam_user_name                            = "actual"
 
   s3_bucket_name_logging = "logging-${var.unique_name}"
+
+  sns_topic_name = "notify-upstream"
 }

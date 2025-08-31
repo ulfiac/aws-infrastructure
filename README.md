@@ -61,3 +61,8 @@ Bootstrap a new AWS account.
     - https://repost.aws/knowledge-center/iam-billing-access
 3. enforcing mfa
     - https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_examples_aws_my-sec-creds-self-manage.html
+4. monitoring root user activity
+    - https://aws.amazon.com/blogs/security/how-to-receive-notifications-when-your-aws-accounts-root-access-keys-are-used/
+    - https://docs.aws.amazon.com/prescriptive-guidance/latest/patterns/monitor-iam-root-user-activity.html
+    - https://aws.amazon.com/blogs/mt/monitor-and-notify-on-aws-account-root-user-activity/
+    - https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudwatch-alarms-for-cloudtrail.html
