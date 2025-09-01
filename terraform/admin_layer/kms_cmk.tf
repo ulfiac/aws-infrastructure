@@ -129,6 +129,22 @@ data "aws_iam_policy_document" "cmk" {
     }
   }
 
+  # https://docs.aws.amazon.com/athena/latest/ug/managed-results.html#managed-query-results-set-up
+  statement {
+    sid    = "Allow Athena to use the key"
+    effect = "Allow"
+    actions = [
+      "kms:Decrypt",
+      "kms:DescribeKey",
+      "kms:GenerateDataKey",
+    ]
+    resources = ["*"]
+    principals {
+      identifiers = ["encryption.athena.amazonaws.com"]
+      type        = "Service"
+    }
+  }
+
   # is a statement for user administration needed (role-switch-admin role)?
 
 }
@@ -143,6 +159,6 @@ resource "aws_kms_key" "logging" {
 }
 
 resource "aws_kms_alias" "logging" {
-  name          = "alias/cmk/logging"
+  name          = local.kms_key_alias
   target_key_id = aws_kms_key.logging.key_id
 }

@@ -24,15 +24,36 @@ resource "aws_s3_bucket_lifecycle_configuration" "logging" {
   bucket = aws_s3_bucket.logging.id
 
   rule {
-    id     = "expire_old_versions"
+    id     = "expire_noncurrent_versions"
     status = "Enabled"
-
     filter {}
-
     noncurrent_version_expiration {
-      noncurrent_days = 30
+      noncurrent_days = 10
     }
   }
+
+  rule {
+    id     = "expire_cloudtrail_logs"
+    status = "Enabled"
+    expiration {
+      days = 30
+    }
+    filter {
+      prefix = "${local.s3_key_prefix_cloudtrail}/"
+    }
+  }
+
+  rule {
+    id     = "expire_athena_results"
+    status = "Enabled"
+    expiration {
+      days = 10
+    }
+    filter {
+      prefix = "${local.s3_key_prefix_athena}/"
+    }
+  }
+
 }
 
 resource "aws_s3_bucket_server_side_encryption_configuration" "logging" {
@@ -147,7 +168,7 @@ data "aws_iam_policy_document" "logging" {
     sid       = "AllowCloudTrailWrite"
     actions   = ["s3:PutObject"]
     effect    = "Allow"
-    resources = ["${aws_s3_bucket.logging.arn}/${local.cloudtrail_s3_key_prefix}/AWSLogs/${local.account_id}/*"]
+    resources = ["${aws_s3_bucket.logging.arn}/${local.s3_key_prefix_cloudtrail}/AWSLogs/${local.account_id}/*"]
 
     condition {
       test     = "StringEquals"

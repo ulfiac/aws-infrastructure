@@ -26,7 +26,7 @@ resource "aws_cloudwatch_metric_alarm" "root_user" {
   evaluation_periods  = 1
   metric_name         = aws_cloudwatch_log_metric_filter.root_user.metric_transformation[0].name
   namespace           = aws_cloudwatch_log_metric_filter.root_user.metric_transformation[0].namespace
-  period              = 300 # value is in seconds so it's 5 minutes
+  period              = 300 # in seconds, 5 minutes
   statistic           = "Sum"
   threshold           = 1
 
