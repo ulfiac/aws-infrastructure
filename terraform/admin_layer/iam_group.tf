@@ -1,4 +1,3 @@
-#trivy:ignore:AVD-AWS-0123 (MEDIUM): Multi-Factor authentication is not enforced for group
 resource "aws_iam_group" "default_group" {
   name = local.iam_group_name
 }
