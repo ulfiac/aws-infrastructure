@@ -6,6 +6,9 @@ locals {
   athena_table_name_cloudtrail = "cloudtrail_logs"
   athena_workgroup_name        = "logs"
 
+  budget_name       = "monthly-budget"
+  budget_thresholds = [20, 40, 60, 80, 100]
+
   cloudtrail_name = "multi-region-trail"
 
   cloudwatch_log_group_name                   = "/aws/cloudtrail/${local.cloudtrail_name}"
