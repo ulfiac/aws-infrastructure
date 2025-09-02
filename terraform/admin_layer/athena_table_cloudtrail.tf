@@ -8,7 +8,6 @@ resource "aws_glue_catalog_table" "cloudtrail_logs" {
   parameters = {
     "EXTERNAL"                     = "TRUE",
     "projection.enabled"           = "true",
-    "projection.accountid.type"    = "injected"
     "projection.day.format"        = "yyyy/MM/dd",
     "projection.day.interval"      = "1",
     "projection.day.interval.unit" = "DAYS",
@@ -16,12 +15,7 @@ resource "aws_glue_catalog_table" "cloudtrail_logs" {
     "projection.day.type"          = "date",
     "projection.region.type"       = "enum"
     "projection.region.values"     = "us-east-1,us-west-1,us-east-2,us-west-2"
-    "storage.location.template"    = "s3://${aws_s3_bucket.logging.bucket}/${local.s3_key_prefix_cloudtrail}/AWSLogs/$${accountid}/CloudTrail/$${region}/$${day}"
-  }
-
-  partition_keys {
-    name = "accountid"
-    type = "string"
+    "storage.location.template"    = "s3://${aws_s3_bucket.logging.bucket}/${local.s3_key_prefix_cloudtrail}/AWSLogs/${local.account_id}/CloudTrail/$${region}/$${day}"
   }
 
   partition_keys {
