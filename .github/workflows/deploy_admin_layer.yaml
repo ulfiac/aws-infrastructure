@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
     inputs:
       terraform_action:
-        default: plan
+        default: apply
         description: terraform action
         options:
           - plan
