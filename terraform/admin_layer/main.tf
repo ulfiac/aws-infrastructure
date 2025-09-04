@@ -11,9 +11,11 @@ locals {
 
   cloudtrail_name = "multi-region-trail"
 
-  cloudwatch_log_group_name                   = "/aws/cloudtrail/${local.cloudtrail_name}"
-  cloudwatch_log_metric_filter_name_root_user = "root-user-activity"
-  cloudwatch_metric_alarm_name_root_user      = "root-user-activity"
+  cloudwatch_log_group_name                                   = "/aws/cloudtrail/${local.cloudtrail_name}"
+  cloudwatch_log_metric_filter_name_root_user                 = "root-user-activity"
+  cloudwatch_log_metric_filter_name_console_login_without_mfa = "console-login-without-mfa"
+  cloudwatch_metric_alarm_name_root_user                      = "root-user-activity"
+  cloudwatch_metric_alarm_name_console_login_without_mfa      = "console-login-without-mfa"
 
   iam_group_name                           = "default-group"
   iam_policy_name_cloudtrail_to_cloudwatch = "cloudtrail-to-cloudwatch"
