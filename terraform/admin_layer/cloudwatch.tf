@@ -40,7 +40,7 @@ resource "aws_cloudwatch_log_metric_filter" "console_login_without_mfa" {
   pattern        = "{ ($.eventName = ConsoleLogin) && ($.additionalEventData.MFAUsed != Yes) }"
 
   metric_transformation {
-    name          = "LoginWithoutMFACount"
+    name          = "ConsoleLoginWithoutMFACount"
     namespace     = "CloudTrailMetrics"
     value         = "1"
     default_value = "0"
@@ -48,7 +48,7 @@ resource "aws_cloudwatch_log_metric_filter" "console_login_without_mfa" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "console_login_without_mfa" {
-  alarm_description = "This metric monitors for successful console logins without MFA."
+  alarm_description = "This metric monitors for console login attempts without MFA."
   alarm_name        = local.cloudwatch_metric_alarm_name_console_login_without_mfa
 
   comparison_operator = "GreaterThanOrEqualToThreshold"
