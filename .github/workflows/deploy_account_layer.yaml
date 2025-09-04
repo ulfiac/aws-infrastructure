@@ -1,5 +1,5 @@
-name: deploy admin layer
-run-name: deploy admin layer - ${{ github.event.inputs.terraform_action }}
+name: deploy account layer
+run-name: deploy account layer - ${{ github.event.inputs.terraform_action }}
 
 on:
   workflow_dispatch:

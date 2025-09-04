@@ -47,10 +47,10 @@ on:
         required: true
         type: choice
       terraform_layer:
-        default: admin_layer
+        default: account_layer
         description: terraform layer
         options:
-          - admin_layer
+          - account_layer
           - root_layer
         required: true
         type: choice
@@ -86,7 +86,7 @@ jobs:
       - run: gpg --version
 
       - name: add gpg public key
-        if: ${{ inputs.terraform_layer == 'admin_layer' }}
+        if: ${{ inputs.terraform_layer == 'account_layer' }}
         env:
           GPG_PUBLIC_KEY_BINARY_BASE64: ${{ vars.GPG_PUBLIC_KEY_BINARY_BASE64 }}
         run: ../../scripts/add_gpg_public_key.sh

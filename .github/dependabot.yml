@@ -9,6 +9,6 @@ updates:
   - package-ecosystem: "terraform"
     directories:
       - "/terraform/root_layer"
-      - "/terraform/admin_layer"
+      - "/terraform/account_layer"
     schedule:
       interval: "weekly"

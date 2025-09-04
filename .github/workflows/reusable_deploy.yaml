@@ -47,10 +47,10 @@ on:
         required: true
         type: choice
       terraform_layer:
-        default: admin_layer
+        default: account_layer
         description: terraform layer
         options:
-          - admin_layer
+          - account_layer
           - root_layer
         required: true
         type: choice

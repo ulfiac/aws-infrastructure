@@ -13,6 +13,6 @@ module "tags" {
   source  = "git::https://github.com/ulfiac/aws-tags.git"
   project = "aws-bootstrap"
   additional_tags = {
-    bootstrap_layer = "admin_layer"
+    bootstrap_layer = "account_layer"
   }
 }

@@ -26,7 +26,7 @@ Bootstrap a new AWS account.
     9. put the sha256 hash into the "add_gpg_public_key.sh" script as the constant named ```EXPECTED_SHA256_BINARY_BASE64```
     10. add the base64 encoded GPG public key to the repo variable named ```GPG_PUBLIC_KEY_BINARY_BASE64```
 2. perform an apply of the root_layer
-3. perform an apply of the admin_layer
+3. perform an apply of the account_layer
 4. post
     1. decrypt the IAM user password
         1. find the ```encrypted password``` output from the terraform apply
