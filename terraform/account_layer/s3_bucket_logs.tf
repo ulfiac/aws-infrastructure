@@ -1,10 +1,10 @@
 #trivy:ignore:AVD-AWS-0089 (LOW): Bucket has logging disabled
-resource "aws_s3_bucket" "logging" {
-  bucket = local.s3_bucket_name_logging
+resource "aws_s3_bucket" "logs" {
+  bucket = local.s3_bucket_name_logs
 }
 
-resource "aws_s3_bucket_public_access_block" "logging" {
-  bucket = aws_s3_bucket.logging.id
+resource "aws_s3_bucket_public_access_block" "logs" {
+  bucket = aws_s3_bucket.logs.id
 
   block_public_acls       = true
   block_public_policy     = true
@@ -12,16 +12,16 @@ resource "aws_s3_bucket_public_access_block" "logging" {
   restrict_public_buckets = true
 }
 
-resource "aws_s3_bucket_versioning" "logging" {
-  bucket = aws_s3_bucket.logging.id
+resource "aws_s3_bucket_versioning" "logs" {
+  bucket = aws_s3_bucket.logs.id
 
   versioning_configuration {
     status = "Enabled"
   }
 }
 
-resource "aws_s3_bucket_lifecycle_configuration" "logging" {
-  bucket = aws_s3_bucket.logging.id
+resource "aws_s3_bucket_lifecycle_configuration" "logs" {
+  bucket = aws_s3_bucket.logs.id
 
   rule {
     id     = "expire_noncurrent_versions"
@@ -56,33 +56,33 @@ resource "aws_s3_bucket_lifecycle_configuration" "logging" {
 
 }
 
-resource "aws_s3_bucket_server_side_encryption_configuration" "logging" {
-  bucket = aws_s3_bucket.logging.id
+resource "aws_s3_bucket_server_side_encryption_configuration" "logs" {
+  bucket = aws_s3_bucket.logs.id
 
   rule {
     apply_server_side_encryption_by_default {
-      kms_master_key_id = aws_kms_key.logging.arn
+      kms_master_key_id = aws_kms_key.logs.arn
       sse_algorithm     = "aws:kms"
     }
   }
 }
 
-resource "aws_s3_bucket_ownership_controls" "logging" {
-  bucket = aws_s3_bucket.logging.id
+resource "aws_s3_bucket_ownership_controls" "logs" {
+  bucket = aws_s3_bucket.logs.id
 
   rule {
     object_ownership = "BucketOwnerEnforced"
   }
 }
 
-data "aws_iam_policy_document" "logging" {
+data "aws_iam_policy_document" "logs" {
   statement {
     sid     = "EnforceTLS"
     actions = ["s3:*"]
     effect  = "Deny"
     resources = [
-      aws_s3_bucket.logging.arn,
-      "${aws_s3_bucket.logging.arn}/*",
+      aws_s3_bucket.logs.arn,
+      "${aws_s3_bucket.logs.arn}/*",
     ]
 
     condition {
@@ -101,7 +101,7 @@ data "aws_iam_policy_document" "logging" {
     sid       = "DenyIncorrectEncryptionHeader"
     actions   = ["s3:PutObject"]
     effect    = "Deny"
-    resources = ["${aws_s3_bucket.logging.arn}/*"]
+    resources = ["${aws_s3_bucket.logs.arn}/*"]
 
     condition {
       test     = "StringNotEquals"
@@ -122,7 +122,7 @@ data "aws_iam_policy_document" "logging" {
     sid       = "DenyAbsentOrIncorrectEncryptionHeader"
     actions   = ["s3:PutObject"]
     effect    = "Deny"
-    resources = ["${aws_s3_bucket.logging.arn}/*"]
+    resources = ["${aws_s3_bucket.logs.arn}/*"]
 
     principals {
       type        = "*"
@@ -133,7 +133,7 @@ data "aws_iam_policy_document" "logging" {
     condition {
       test     = "StringNotEquals"
       variable = "s3:x-amz-server-side-encryption-aws-kms-key-id"
-      values   = [aws_kms_key.logging.arn]
+      values   = [aws_kms_key.logs.arn]
     }
   }
 
@@ -142,8 +142,8 @@ data "aws_iam_policy_document" "logging" {
     actions = ["s3:*"]
     effect  = "Allow"
     resources = [
-      aws_s3_bucket.logging.arn,
-      "${aws_s3_bucket.logging.arn}/*",
+      aws_s3_bucket.logs.arn,
+      "${aws_s3_bucket.logs.arn}/*",
     ]
 
     principals {
@@ -156,7 +156,7 @@ data "aws_iam_policy_document" "logging" {
     sid       = "AllowCloudTrailAclCheck"
     actions   = ["s3:GetBucketAcl"]
     effect    = "Allow"
-    resources = [aws_s3_bucket.logging.arn]
+    resources = [aws_s3_bucket.logs.arn]
 
     principals {
       type        = "Service"
@@ -168,7 +168,7 @@ data "aws_iam_policy_document" "logging" {
     sid       = "AllowCloudTrailWrite"
     actions   = ["s3:PutObject"]
     effect    = "Allow"
-    resources = ["${aws_s3_bucket.logging.arn}/${local.s3_key_prefix_cloudtrail}/AWSLogs/${local.account_id}/*"]
+    resources = ["${aws_s3_bucket.logs.arn}/${local.s3_key_prefix_cloudtrail}/AWSLogs/${local.account_id}/*"]
 
     condition {
       test     = "StringEquals"
@@ -183,7 +183,7 @@ data "aws_iam_policy_document" "logging" {
   }
 }
 
-resource "aws_s3_bucket_policy" "logging" {
-  bucket = aws_s3_bucket.logging.id
-  policy = data.aws_iam_policy_document.logging.json
+resource "aws_s3_bucket_policy" "logs" {
+  bucket = aws_s3_bucket.logs.id
+  policy = data.aws_iam_policy_document.logs.json
 }

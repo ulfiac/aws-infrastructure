@@ -149,8 +149,8 @@ data "aws_iam_policy_document" "cmk" {
 
 }
 
-resource "aws_kms_key" "logging" {
-  deletion_window_in_days = 30
+resource "aws_kms_key" "logs" {
+  deletion_window_in_days = 7
   enable_key_rotation     = true
   is_enabled              = true
   multi_region            = true
@@ -158,7 +158,7 @@ resource "aws_kms_key" "logging" {
   rotation_period_in_days = 365
 }
 
-resource "aws_kms_alias" "logging" {
+resource "aws_kms_alias" "logs" {
   name          = local.kms_key_alias
-  target_key_id = aws_kms_key.logging.key_id
+  target_key_id = aws_kms_key.logs.key_id
 }
