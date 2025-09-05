@@ -3,7 +3,7 @@ locals {
   region     = data.aws_region.current.region
 
   athena_database_name         = "logs" # must be lowercase letters, numbers, or underscore
-  athena_table_name_cloudtrail = "cloudtrail_logs"
+  athena_table_name_cloudtrail = "cloudtrail-logs"
   athena_workgroup_name        = "logs"
 
   budget_name       = "monthly-budget"
@@ -26,9 +26,9 @@ locals {
   iam_role_name_poweruser                  = "role-switch-power-user"
   iam_user_name                            = "actual"
 
-  kms_key_alias = "alias/cmk/logging"
+  kms_key_alias = "alias/cmk/logs"
 
-  s3_bucket_name_logging   = "logging-${var.unique_name}"
+  s3_bucket_name_logs      = "logs-${var.unique_name}"
   s3_key_prefix_athena     = "athena"
   s3_key_prefix_cloudtrail = "cloudtrail"
 

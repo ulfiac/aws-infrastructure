@@ -42,5 +42,5 @@ data "aws_iam_policy_document" "cloudtrail_to_cloudwatch_policy" {
 resource "aws_iam_role_policy" "cloudtrail_to_cloudwatch_policy" {
   name   = local.iam_policy_name_cloudtrail_to_cloudwatch
   policy = data.aws_iam_policy_document.cloudtrail_to_cloudwatch_policy.json
-  role   = aws_iam_role.cloudtrail_to_cloudwatch_role.id
+  role   = aws_iam_role.cloudtrail_to_cloudwatch_role.name
 }

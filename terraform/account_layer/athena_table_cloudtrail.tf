@@ -15,7 +15,7 @@ resource "aws_glue_catalog_table" "cloudtrail_logs" {
     "projection.day.type"          = "date",
     "projection.region.type"       = "enum"
     "projection.region.values"     = "us-east-1,us-west-1,us-east-2,us-west-2"
-    "storage.location.template"    = "s3://${aws_s3_bucket.logging.bucket}/${local.s3_key_prefix_cloudtrail}/AWSLogs/${local.account_id}/CloudTrail/$${region}/$${day}"
+    "storage.location.template"    = "s3://${aws_s3_bucket.logs.bucket}/${local.s3_key_prefix_cloudtrail}/AWSLogs/${local.account_id}/CloudTrail/$${region}/$${day}"
   }
 
   partition_keys {
@@ -32,7 +32,7 @@ resource "aws_glue_catalog_table" "cloudtrail_logs" {
     bucket_columns            = []
     compressed                = false
     input_format              = "com.amazon.emr.cloudtrail.CloudTrailInputFormat"
-    location                  = "s3://${aws_s3_bucket.logging.bucket}/${local.s3_key_prefix_cloudtrail}/AWSLogs/"
+    location                  = "s3://${aws_s3_bucket.logs.bucket}/${local.s3_key_prefix_cloudtrail}/AWSLogs/"
     number_of_buckets         = -1
     output_format             = "org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat"
     stored_as_sub_directories = false
