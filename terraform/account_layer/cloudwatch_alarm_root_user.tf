@@ -2,7 +2,6 @@ resource "aws_cloudwatch_log_metric_filter" "root_user" {
   name           = local.cloudwatch_log_metric_filter_name_root_user
   log_group_name = aws_cloudwatch_log_group.cloudtrail.name
   pattern        = "{ ($.userIdentity.type = \"Root\") && ($.userIdentity.invokedBy NOT EXISTS) && ($.eventType != \"AwsServiceEvent\") }"
-  #pattern        = "{ $.userIdentity.type = \"Root\" && $.userIdentity.userName = \"root\" }"
 
   metric_transformation {
     name          = "RootUserActivityCount"
