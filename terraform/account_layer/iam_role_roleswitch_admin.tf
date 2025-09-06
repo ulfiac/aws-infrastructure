@@ -1,4 +1,4 @@
-data "aws_iam_policy_document" "assume_role" {
+data "aws_iam_policy_document" "assume_role_admin" {
   statement {
     sid     = "AllowAssumeRoleIfMFA"
     effect  = "Allow"
@@ -17,7 +17,7 @@ data "aws_iam_policy_document" "assume_role" {
 
 resource "aws_iam_role" "admin" {
   name               = local.iam_role_name_admin
-  assume_role_policy = data.aws_iam_policy_document.assume_role.json
+  assume_role_policy = data.aws_iam_policy_document.assume_role_admin.json
 }
 
 resource "aws_iam_role_policy_attachment" "admin" {
@@ -28,14 +28,4 @@ resource "aws_iam_role_policy_attachment" "admin" {
 resource "aws_iam_role_policy_attachment" "billing" {
   policy_arn = data.aws_iam_policy.billing.arn
   role       = aws_iam_role.admin.name
-}
-
-resource "aws_iam_role" "power_user" {
-  name               = local.iam_role_name_poweruser
-  assume_role_policy = data.aws_iam_policy_document.assume_role.json
-}
-
-resource "aws_iam_role_policy_attachment" "power_user" {
-  policy_arn = data.aws_iam_policy.power_user_access.arn
-  role       = aws_iam_role.power_user.name
 }

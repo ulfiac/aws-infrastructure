@@ -15,7 +15,8 @@ data "aws_iam_policy_document" "roleswitch" {
   }
 }
 
-resource "aws_iam_policy" "roleswitch" {
-  name   = local.iam_policy_name_roleswitch
+resource "aws_iam_group_policy" "roleswitch" {
+  group  = aws_iam_group.default_group.name
+  name   = local.iam_group_policy_name_roleswitch
   policy = data.aws_iam_policy_document.roleswitch.json
 }

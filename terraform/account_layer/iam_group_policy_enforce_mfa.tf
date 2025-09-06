@@ -148,7 +148,8 @@ data "aws_iam_policy_document" "enforce_mfa" {
   }
 }
 
-resource "aws_iam_policy" "enforce_mfa" {
-  name   = local.iam_policy_name_mfa
+resource "aws_iam_group_policy" "enforce_mfa" {
+  group  = aws_iam_group.default_group.name
+  name   = local.iam_group_policy_name_enforce_mfa
   policy = data.aws_iam_policy_document.enforce_mfa.json
 }
