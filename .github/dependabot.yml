@@ -8,7 +8,8 @@ updates:
   #     interval: "weekly"
   - package-ecosystem: "terraform"
     directories:
-      - "/terraform/root_layer"
       - "/terraform/account_layer"
+      - "/terraform/earn_credits_layer"
+      - "/terraform/root_layer"
     schedule:
       interval: "weekly"

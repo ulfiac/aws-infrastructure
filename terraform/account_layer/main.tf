@@ -6,8 +6,8 @@ locals {
   athena_table_name_cloudtrail = "cloudtrail-logs"
   athena_workgroup_name        = "logs"
 
-  budget_name       = "monthly-budget"
-  budget_thresholds = [20, 40, 60, 80, 100]
+  billing_budget_name       = "monthly-budget"
+  billing_budget_thresholds = [20, 40, 60, 80, 100]
 
   cloudtrail_name = "multi-region-trail"
 

@@ -51,6 +51,7 @@ on:
         description: terraform layer
         options:
           - account_layer
+          - earn_credits_layer
           - root_layer
         required: true
         type: choice
