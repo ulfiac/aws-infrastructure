@@ -158,11 +158,15 @@ jobs:
       - name: terraform apply
         if: ${{ inputs.terraform_action == 'apply' }}
         run: |
-          terraform apply -auto-approve
+          terraform apply -auto-approve | tee tfapply.out
           echo -e "\n::notice::Apply details.\n"
 
       - name: terraform destroy
         if: ${{ inputs.terraform_action == 'destroy' }}
         run: |
-          terraform apply -destroy -auto-approve
+          terraform apply -destroy -auto-approve | tee tfdestroy.out
           echo -e "\n::notice::Destroy details.\n"
+
+      - name: show apply summary
+        if: ${{ inputs.terraform_action == 'apply' || inputs.terraform_action == 'destroy' }}
+        run: ../../scripts/show_apply_summary.sh "${{ inputs.terraform_action }}"
