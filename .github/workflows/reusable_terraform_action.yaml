@@ -159,12 +159,14 @@ jobs:
       - name: terraform apply
         if: ${{ inputs.terraform_action == 'apply' }}
         run: |
+          set -o pipefail
           terraform apply -auto-approve | tee tfapply.out
           echo -e "\n::notice::Apply details.\n"
 
       - name: terraform destroy
         if: ${{ inputs.terraform_action == 'destroy' }}
         run: |
+          set -o pipefail
           terraform apply -destroy -auto-approve | tee tfdestroy.out
           echo -e "\n::notice::Destroy details.\n"
 

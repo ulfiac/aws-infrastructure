@@ -1,4 +1,4 @@
-data "aws_ami" "billing_credit" {
+data "aws_ami" "most_recent_al2023" {
   most_recent = true
   owners      = ["amazon"]
 
@@ -18,11 +18,13 @@ data "aws_ami" "billing_credit" {
   }
 }
 
-resource "aws_instance" "billing_credit" {
-  ami                         = data.aws_ami.billing_credit.id
+resource "aws_instance" "ec2_instance" {
+  ami                         = data.aws_ami.most_recent_al2023.id
   associate_public_ip_address = false
   ebs_optimized               = true
   instance_type               = "t3.micro"
+  subnet_id                   = data.aws_subnets.default.ids[0]
+  vpc_security_group_ids      = [data.aws_security_group.default.id]
 
   metadata_options {
     http_tokens            = "required"

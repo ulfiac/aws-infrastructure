@@ -20,7 +20,7 @@ permissions:
   id-token: write
 
 jobs:
-  deploy-admin-layer:
+  deploy-earn-credits-layer:
     uses: ./.github/workflows/reusable_deploy.yaml
     with:
       auth: oidc
