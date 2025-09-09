@@ -1,6 +1,7 @@
 locals {
-  account_id = data.aws_caller_identity.current.account_id
-  region     = data.aws_region.current.region
+  account_id         = data.aws_caller_identity.current.account_id
+  availability_zones = [for subnet in data.aws_subnet.default : subnet.availability_zone]
+  region             = data.aws_region.current.region
 
   athena_database_name         = "logs" # must be lowercase letters, numbers, or underscore
   athena_table_name_cloudtrail = "cloudtrail-logs"
