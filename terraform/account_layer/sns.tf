@@ -6,5 +6,5 @@ resource "aws_sns_topic" "notify_upstream" {
 resource "aws_sns_topic_subscription" "notify_upstream_via_email" {
   topic_arn = aws_sns_topic.notify_upstream.arn
   protocol  = "email"
-  endpoint  = var.upstream_email
+  endpoint  = local.sns_endpoint_email
 }
