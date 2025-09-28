@@ -35,6 +35,6 @@ locals {
   s3_key_prefix_athena     = "athena"
   s3_key_prefix_cloudtrail = "cloudtrail"
 
-  sns_endpoint_email = "${var.unique_name}-aws-sns@gmail.com"
+  sns_endpoint_email = "${var.unique_name}+aws-sns@gmail.com"
   sns_topic_name     = "notify-upstream"
 }
