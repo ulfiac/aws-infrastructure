@@ -2,6 +2,17 @@ name: clear workflow logs
 
 on:
   workflow_dispatch:
+    inputs:
+      retain_days:
+        default: 0
+        description: retain days
+        required: true
+        type: number
+      keep_minimum_runs:
+        default: 10
+        description: keep minimum runs
+        required: true
+        type: number
 
 permissions:
   actions: write
@@ -13,7 +24,7 @@ jobs:
     steps:
       - uses: Mattraks/delete-workflow-runs@feeb82053ea847a97fe4ee2aa314c94eac0eff04 # v2
         with:
-          token:                   ${{ github.token }}
-          repository:              ${{ github.repository }}
-          retain_days:             0
-          keep_minimum_runs:       10
+          token:             ${{ github.token }}
+          repository:        ${{ github.repository }}
+          retain_days:       ${{ github.event.inputs.retain_days }}
+          keep_minimum_runs: ${{ github.event.inputs.keep_minimum_runs }}
