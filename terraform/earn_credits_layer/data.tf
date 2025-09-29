@@ -1,3 +1,7 @@
+data "aws_iam_policy" "lambda_basic_execution_role" {
+  name = "AWSLambdaBasicExecutionRole"
+}
+
 data "aws_kms_key" "ebs" {
   key_id = "alias/aws/ebs"
 }

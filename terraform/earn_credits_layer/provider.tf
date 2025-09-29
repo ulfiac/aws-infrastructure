@@ -6,6 +6,8 @@ provider "aws" {
   }
 }
 
+provider "archive" {}
+
 module "tags" {
   # tflint-ignore: terraform_module_pinned_source
   source  = "git::https://github.com/ulfiac/aws-tags.git"
