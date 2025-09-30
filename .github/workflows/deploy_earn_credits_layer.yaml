@@ -24,7 +24,7 @@ jobs:
     uses: ./.github/workflows/reusable_deploy.yaml
     with:
       auth: oidc
-      aws_region: us-east-2
+      aws_region: us-east-1
       terraform_action: ${{ github.event.inputs.terraform_action }}
       terraform_layer: earn_credits_layer
     secrets: inherit

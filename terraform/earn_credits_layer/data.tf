@@ -2,6 +2,14 @@ data "aws_iam_policy" "lambda_basic_execution_role" {
   name = "AWSLambdaBasicExecutionRole"
 }
 
+data "aws_iam_policy" "bedrock_full_access" {
+  name = "AmazonBedrockFullAccess"
+}
+
+data "aws_bedrock_foundation_model" "nova_pro" {
+  model_id = "amazon.nova-pro-v1:0"
+}
+
 data "aws_kms_key" "ebs" {
   key_id = "alias/aws/ebs"
 }
