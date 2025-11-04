@@ -35,16 +35,12 @@ resource "random_integer" "invoke_model_second_term" {
 }
 
 resource "aws_lambda_invocation" "invoke_model" {
-
   function_name = aws_lambda_function.earn_aws_credit_invoke_model.function_name
   input = jsonencode({
-    # tflint-ignore: terraform_deprecated_interpolation
-    aws_region = "${var.aws_region}"
-    # tflint-ignore: terraform_deprecated_interpolation
-    model_id = "${data.aws_bedrock_foundation_model.nova_pro.model_id}"
-    prompt   = "what is ${random_integer.invoke_model_first_term.result} plus ${random_integer.invoke_model_second_term.result}?  Please answer with a single sentence."
-    # tflint-ignore: terraform_deprecated_interpolation
-    timestamp = "${timestamp()}"
+    aws_region = var.aws_region
+    model_id   = data.aws_bedrock_foundation_model.nova_pro.model_id
+    prompt     = "What is ${random_integer.invoke_model_first_term.result} plus ${random_integer.invoke_model_second_term.result}?  Please answer with a single sentence."
+    timestamp  = timestamp()
   })
 
   triggers = {

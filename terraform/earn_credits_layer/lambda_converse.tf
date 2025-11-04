@@ -34,17 +34,13 @@ resource "random_integer" "converse_second_term" {
   }
 }
 
-
 resource "aws_lambda_invocation" "converse" {
   function_name = aws_lambda_function.earn_aws_credit_converse.function_name
   input = jsonencode({
-    # tflint-ignore: terraform_deprecated_interpolation
-    aws_region = "${var.aws_region}"
-    # tflint-ignore: terraform_deprecated_interpolation
-    model_id = "${data.aws_bedrock_foundation_model.nova_pro.model_id}"
-    prompt   = "what is ${random_integer.converse_first_term.result} plus ${random_integer.converse_second_term.result}?  Please answer with a single sentence."
-    # tflint-ignore: terraform_deprecated_interpolation
-    timestamp = "${timestamp()}"
+    aws_region = var.aws_region
+    model_id   = data.aws_bedrock_foundation_model.nova_pro.model_id
+    prompt     = "What is ${random_integer.converse_first_term.result} plus ${random_integer.converse_second_term.result}?  Please answer with a single sentence."
+    timestamp  = timestamp()
   })
 
   triggers = {
