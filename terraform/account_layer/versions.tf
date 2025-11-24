@@ -6,7 +6,7 @@ terraform {
     }
     local = {
       source  = "hashicorp/local"
-      version = "2.5.3"
+      version = "2.6.1"
     }
   }
   required_version = ">= 1.13.1"
