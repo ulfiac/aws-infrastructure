@@ -23,7 +23,6 @@ jobs:
   deploy-earn-credits-layer:
     uses: ./.github/workflows/reusable_deploy.yaml
     with:
-      auth: oidc
       aws_region: us-east-1
       terraform_action: ${{ github.event.inputs.terraform_action }}
       terraform_layer: earn_credits_layer

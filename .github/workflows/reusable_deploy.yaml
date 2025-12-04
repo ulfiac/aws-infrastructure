@@ -4,10 +4,6 @@ run-name: deploy on ${{ inputs.terraform_layer }} - ${{ inputs.terraform_action 
 on:
   workflow_call:
     inputs:
-      auth:
-        default: oidc
-        required: false
-        type: string
       aws_region:
         default: us-east-2
         required: false
@@ -20,14 +16,6 @@ on:
         type: string
   workflow_dispatch:
     inputs:
-      auth:
-        default: oidc
-        description: authentication method
-        options:
-          - keys
-          - oidc
-        required: false
-        type: choice
       aws_region:
         default: us-east-2
         description: aws region
@@ -52,7 +40,6 @@ on:
         options:
           - account_layer
           - earn_credits_layer
-          - root_layer
         required: true
         type: choice
 
@@ -83,7 +70,6 @@ jobs:
     uses: ./.github/workflows/reusable_terraform_action.yaml
     needs: set-plan-action
     with:
-      auth: ${{ inputs.auth }}
       aws_region: ${{ inputs.aws_region }}
       terraform_action: ${{ needs.set-plan-action.outputs.plan_action }}
       terraform_layer: ${{ inputs.terraform_layer }}
@@ -104,7 +90,6 @@ jobs:
     if: ${{ inputs.terraform_action == 'apply' || inputs.terraform_action == 'destroy' }}
     needs: get-approval
     with:
-      auth: ${{ inputs.auth }}
       aws_region: ${{ inputs.aws_region }}
       terraform_action: ${{ inputs.terraform_action }}
       terraform_layer: ${{ inputs.terraform_layer }}

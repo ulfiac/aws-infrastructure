@@ -4,10 +4,6 @@ run-name: tf action on ${{ inputs.terraform_layer }} - ${{ inputs.terraform_acti
 on: 
   workflow_call:
     inputs:
-      auth:
-        default: oidc
-        required: false
-        type: string
       aws_region:
         default: us-east-2
         required: false
@@ -20,14 +16,6 @@ on:
         type: string
   workflow_dispatch:
     inputs:
-      auth:
-        default: oidc
-        description: authentication method
-        options:
-          - keys
-          - oidc
-        required: false
-        type: choice
       aws_region:
         default: us-east-2
         description: aws region
@@ -52,7 +40,6 @@ on:
         options:
           - account_layer
           - earn_credits_layer
-          - root_layer
         required: true
         type: choice
 
@@ -62,9 +49,6 @@ env:
   TF_LOG_PROVIDER: OFF
   TF_LOG_PATH: ./terraform.log
   TF_VAR_aws_region: ${{ inputs.aws_region }}
-  TF_VAR_oidc_role_to_assume: ${{ vars.OIDC_ROLE_TO_ASSUME }}
-  TF_VAR_oidc_provider_hostname: ${{ vars.OIDC_PROVIDER_HOSTNAME }}
-  TF_VAR_tf_state_s3_bucket_name: ${{ vars.TF_STATE_S3_BUCKET_NAME }}
   TF_VAR_unique_name: ${{ secrets.UNIQUE_NAME }}
 
 permissions:
@@ -99,18 +83,9 @@ jobs:
       - run: aws --version
 
       - name: configure aws credentials with oidc
-        if: ${{ inputs.auth == 'oidc' }}
         uses: aws-actions/configure-aws-credentials@61815dcd50bd041e203e49132bacad1fd04d2708 # v5.1.1, current as of 2025-12-03
         with:
           role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/${{ vars.OIDC_ROLE_TO_ASSUME }}
-          aws-region: ${{ inputs.aws_region }}
-
-      - name: configure aws credentials with keys
-        if: ${{ inputs.auth == 'keys' }}
-        uses: aws-actions/configure-aws-credentials@61815dcd50bd041e203e49132bacad1fd04d2708 # v5.1.1, current as of 2025-12-03
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ inputs.aws_region }}
 
       - name: dump context
