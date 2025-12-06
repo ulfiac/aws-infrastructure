@@ -11,8 +11,8 @@ provider "local" {}
 module "tags" {
   # tflint-ignore: terraform_module_pinned_source
   source  = "git::https://github.com/ulfiac/aws-tags.git"
-  project = "aws-bootstrap"
+  project = "aws-infrastructure"
   additional_tags = {
-    bootstrap_layer = "account_layer"
+    layer = "account_layer"
   }
 }

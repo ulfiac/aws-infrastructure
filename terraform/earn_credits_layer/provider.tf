@@ -11,8 +11,8 @@ provider "archive" {}
 module "tags" {
   # tflint-ignore: terraform_module_pinned_source
   source  = "git::https://github.com/ulfiac/aws-tags.git"
-  project = "aws-bootstrap"
+  project = "aws-infrastructure"
   additional_tags = {
-    bootstrap_layer = "earn_credits_layer"
+    layer = "earn_credits_layer"
   }
 }
