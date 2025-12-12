@@ -11,53 +11,6 @@ permissions:
   contents: read
 
 jobs:
-  # terraform syntax linter
-  terraform-fmt:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1, current as of 2025-12-03
-      - uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd # v3.1.2, current as of 2025-12-03
-        with:
-          terraform_wrapper: false
-      - run: terraform --version
-      - run: terraform fmt -check -diff -recursive .
-
-  # security scanner
-  trivy-config:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1, current as of 2025-12-03
-      - uses: aquasecurity/setup-trivy@e6c2c5e321ed9123bda567646e2f96565e34abe1 # v0.2.4
-      - run: trivy --version
-      - run: trivy config --exit-code 1 .
-
-  # github action workflow linter
-  actionlint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1, current as of 2025-12-03
-      - uses: docker://rhysd/actionlint:1.7.7
-        with:
-          args: -color
-
-  # terraform linter
-  tflint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1, current as of 2025-12-03
-      - uses: terraform-linters/setup-tflint@4cb9feea73331a35b422df102992a03a44a3bb33 # v6.2.1
-      - run: tflint --version
-      - run: tflint --recursive
-
-  # shell script linter
-  shellcheck:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1, current as of 2025-12-03
-      - uses: ludeeus/action-shellcheck@00cae500b08a931fb5698e11e79bfbd38e612a38 # v2.0.0
-        with:
-          scandir: ./scripts
-
   reusable-linter:
     uses: ulfiac/github-action-reusables/.github/workflows/reusable_linter.yaml@main
     with:
