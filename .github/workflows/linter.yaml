@@ -7,6 +7,9 @@ on:
       - main
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   # terraform syntax linter
   terraform-fmt:
@@ -54,3 +57,9 @@ jobs:
       - uses: ludeeus/action-shellcheck@00cae500b08a931fb5698e11e79bfbd38e612a38 # v2.0.0
         with:
           scandir: ./scripts
+
+  reusable-linter:
+    uses: ulfiac/github-action-reusables/.github/workflows/reusable_linter.yaml@main
+    with:
+      shellcheck-scandir: "./scripts"
+      terraform-fmt-path: "./terraform"
