@@ -12,8 +12,8 @@ include "root" {
 
 # Include the envcommon configuration for the component. The envcommon configuration contains settings that are common
 # for the component across all environments.
-include "common" {
-  path = "${dirname(find_in_parent_folders("root.hcl"))}/_common/credits.hcl"
+include "component" {
+  path = "${dirname(find_in_parent_folders("root.hcl"))}/_component/vpc_default.hcl"
   # We want to reference the variables from the included config in this configuration, so we expose it.
   expose = true
 }
@@ -21,9 +21,10 @@ include "common" {
 # Configure the version of the module to use in this environment. This allows you to promote new versions one
 # environment at a time (e.g., qa -> stage -> prod).
 terraform {
-  source = "${include.common.locals.base_source_url}?ref=v0.8.0"
+  source = "${include.component.locals.source_url}?ref=${include.component.locals.source_version}"
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
 # We don't need to override any of the common parameters for this environment, so we don't specify any other parameters.
 # ---------------------------------------------------------------------------------------------------------------------
+inputs = {}
