@@ -22,9 +22,18 @@ generate "providers" {
   contents  = <<EOF
 
 %{if contains(local.providers, "aws")}
+module "tags" {
+  source  = "git::https://github.com/ulfiac/terraform-infrastructure-modules.git//modules/tags?ref=main"
+  project = "infra"
+}
+
 provider "aws" {
   allowed_account_ids = ["${local.aws_account_id}"]
   region              = "${local.aws_region}"
+
+  default_tags {
+    tags = module.tags.all_the_tags
+  }
 }
 %{endif}
 
