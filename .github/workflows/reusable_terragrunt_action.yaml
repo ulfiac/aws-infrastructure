@@ -1,0 +1,129 @@
+name: reusable tg action
+run-name: ${{ inputs.account }} - ${{ inputs.region }} - ${{ inputs.terragrunt_action }}
+
+on:
+  workflow_call:
+    inputs:
+      account:
+        required: true
+        type: string
+      region:
+        required: true
+        type: string
+      terragrunt_action:
+        required: true
+        type: string
+  workflow_dispatch:
+    inputs:
+      account:
+        options:
+          - mgmt
+        required: true
+        type: choice
+      region:
+        default: us-east-2
+        description: aws region
+        required: false
+        type: choice
+        options:
+          - _global
+          - ca-central-1
+          - us-east-1
+          - us-east-2
+      terragrunt_action:
+        default: plan
+        options:
+          - plan
+          - plan destroy
+          - apply
+          - destroy
+        required: true
+        type: choice
+
+env:
+  TF_LOG: OFF
+  TF_LOG_CORE: OFF
+  TF_LOG_PROVIDER: OFF
+  TF_LOG_PATH: ./terraform.log
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  terragrunt_action:
+    name: ${{ inputs.account }} / ${{ inputs.region }} / ${{ inputs.terragrunt_action }}
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./terragrunt/aws/${{ inputs.account }}/${{ inputs.region }}
+    steps:
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1, current as of 2025-12-03
+      - run: pwd
+
+      - run: shasum --version
+      - run: gpg --version
+
+      - name: add gpg public key
+        env:
+          GPG_PUBLIC_KEY_BINARY_BASE64: ${{ vars.GPG_PUBLIC_KEY_BINARY_BASE64 }}
+        run: ../../scripts/add_gpg_public_key.sh
+
+      - uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd # v3.1.2, current as of 2025-12-03
+        with:
+          terraform_wrapper: false
+      - run: terraform --version
+
+      - uses: gruntwork-io/terragrunt-action@95fc057922e3c3d4cc021a81a213f088f333ddef # v3.0.2, released 2025-07
+        with:
+          tf_path: .
+          tg_version: "latest" # released 2025-12
+
+      - run: aws --version
+
+      - name: configure aws credentials with oidc
+        uses: aws-actions/configure-aws-credentials@61815dcd50bd041e203e49132bacad1fd04d2708 # v5.1.1, current as of 2025-12-03
+        with:
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/${{ vars.OIDC_ROLE_TO_ASSUME }}
+          aws-region: ${{ inputs.region == '_global' && 'us-east-2' || inputs.region }}
+
+      - name: dump context
+        env:
+          CONTEXT_ENV: ${{ toJson(env) }}
+          CONTEXT_GITHUB: ${{ toJson(github) }}
+          CONTEXT_INPUTS: ${{ toJson(inputs) }}
+          CONTEXT_JOB: ${{ toJson(job) }}
+          CONTEXT_MATRIX: ${{ toJson(matrix) }}
+          CONTEXT_NEEDS: ${{ toJson(needs) }}
+          CONTEXT_RUNNER: ${{ toJson(runner) }}
+          CONTEXT_SECRETS: ${{ toJson(secrets) }}
+          CONTEXT_STEPS: ${{ toJson(steps) }}
+          CONTEXT_STRATEGY: ${{ toJson(strategy) }}
+          CONTEXT_VARS: ${{ toJson(vars) }}
+        run: ../../scripts/dump_context.sh
+
+      - name: terragrunt plan
+        if: ${{ inputs.terragrunt_action == 'plan' }}
+        run: |
+          terragrunt plan --all
+          echo -e "\n::notice::Plan details.\n"
+
+      - name: terragrunt plan destroy
+        if: ${{ inputs.terragrunt_action == 'plan destroy' }}
+        run: |
+          terragrunt plan -destroy --all
+          echo -e "\n::notice::Plan destroy details.\n"
+
+      - name: terragrunt apply
+        if: ${{ inputs.terragrunt_action == 'apply' }}
+        run: |
+          set -o pipefail
+          terragrunt apply --all
+          echo -e "\n::notice::Apply details.\n"
+
+      - name: terragrunt destroy
+        if: ${{ inputs.terragrunt_action == 'destroy' }}
+        run: |
+          set -o pipefail
+          terragrunt apply -destroy --all
+          echo -e "\n::notice::Destroy details.\n"
