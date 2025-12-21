@@ -1,3 +1,12 @@
+module "tags" {
+  # tflint-ignore: terraform_module_pinned_source
+  source  = "git::https://github.com/ulfiac/terraform-infrastructure-modules.git//modules/tags?ref=main"
+  project = "aws-infrastructure"
+  additional_tags = {
+    layer = "account_layer"
+  }
+}
+
 provider "aws" {
   region = var.aws_region
 
@@ -7,12 +16,3 @@ provider "aws" {
 }
 
 provider "local" {}
-
-module "tags" {
-  # tflint-ignore: terraform_module_pinned_source
-  source  = "git::https://github.com/ulfiac/aws-tags.git"
-  project = "aws-infrastructure"
-  additional_tags = {
-    layer = "account_layer"
-  }
-}
