@@ -60,8 +60,8 @@ jobs:
   deploy-aws-account:
     strategy:
       matrix:
-        account: ${{ inputs.account == 'all' && fromJson('["mgmt"]') || format('[{0}]', inputs.account) }}
-        region: ${{ inputs.region == 'all' && fromJson('["_global","ca-central-1","us-east-1","us-east-2"]') || format('[{0}]', inputs.region) }}
+        account: ${{ fromJson(inputs.account == 'all' && '["mgmt"]' || format('["{0}"]', inputs.account)) }}
+        region: ${{ fromJson(inputs.region == 'all' && '["_global","ca-central-1","us-east-1","us-east-2"]' || format('["{0}"]', inputs.region)) }}
     uses: ./.github/workflows/reusable_terragrunt_action.yaml
     with:
       account: ${{ matrix.account }}
