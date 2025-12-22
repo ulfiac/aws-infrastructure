@@ -1,47 +1,9 @@
 name: deploy aws
-run-name: deploy aws - ${{ inputs.account }} / ${{ inputs.region }} / ${{ inputs.component }} / ${{ inputs.terragrunt_action }}
+run-name: deploy aws - ${{ inputs.terragrunt_action }}
 
 on:
-  workflow_call:
-    inputs:
-      account:
-        required: true
-        type: string
-      region:
-        required: true
-        type: string
-      component:
-        required: true
-        type: string
-      terragrunt_action:
-        required: true
-        type: string
   workflow_dispatch:
     inputs:
-      account:
-        default: all
-        options:
-          - all
-          - mgmt
-        required: true
-        type: choice
-      region:
-        default: all
-        options:
-          - all
-          - _global
-          - ca-central-1
-          - us-east-1
-          - us-east-2
-        required: true
-        type: choice
-      component:
-        default: all
-        options:
-          - all
-          - vpc_default
-        required: true
-        type: choice
       terragrunt_action:
         default: plan
         options:
@@ -57,15 +19,11 @@ permissions:
   id-token: write
 
 jobs:
-  deploy-aws-account:
-    strategy:
-      matrix:
-        account: ${{ fromJson(inputs.account == 'all' && '["mgmt"]' || format('["{0}"]', inputs.account)) }}
-        region: ${{ fromJson(inputs.region == 'all' && '["_global","ca-central-1","us-east-1","us-east-2"]' || format('["{0}"]', inputs.region)) }}
-    uses: ./.github/workflows/reusable_terragrunt_action.yaml
+  aws:
+    uses: ./.github/workflows/reusable_deploy_aws_accounts.yaml
     with:
-      account: ${{ matrix.account }}
-      region: ${{ matrix.region }}
-      component: ${{ inputs.component }}
+      account: all
+      region: all
+      component: all
       terragrunt_action: ${{ inputs.terragrunt_action }}
     secrets: inherit
