@@ -1,4 +1,4 @@
-name: purge-workflow-logs
+name: purge workflow logs
 
 on:
   schedule:
