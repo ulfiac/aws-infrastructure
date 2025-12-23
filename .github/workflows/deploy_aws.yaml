@@ -20,10 +20,8 @@ permissions:
 
 jobs:
   aws:
-    uses: ./.github/workflows/reusable_deploy_aws_accounts.yaml
+    uses: ./.github/workflows/reusable_deploy_aws_account.yaml
     with:
       account: all
-      region: all
-      component: all
       terragrunt_action: ${{ inputs.terragrunt_action }}
     secrets: inherit

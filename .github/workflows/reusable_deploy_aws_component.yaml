@@ -1,4 +1,4 @@
-name: reusable tg action
+name: reusable deploy aws component
 run-name: ${{ inputs.account }} - ${{ inputs.region }} - ${{ inputs.component }} - ${{ inputs.terragrunt_action }}
 
 on:
@@ -61,8 +61,8 @@ permissions:
   id-token: write
 
 jobs:
-  terragrunt_action:
-    name: ${{ inputs.account }} / ${{ inputs.region }} / ${{ inputs.component }} / ${{ inputs.terragrunt_action }}
+  component:
+    name: component (${{ inputs.component }}/${{ inputs.terragrunt_action }})
     runs-on: ubuntu-latest
     defaults:
       run:
