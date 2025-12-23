@@ -19,10 +19,12 @@ permissions:
   id-token: write
 
 jobs:
-  aws:
-    name: aws | ${{ inputs.terragrunt_action }}
-    uses: ./.github/workflows/reusable_deploy_aws_account.yaml
+  deploy-aws:
+    name: "${{ inputs.terragrunt_action }}: deploy all aws"
+    uses: ./.github/workflows/reusable_deploy_aws.yaml
     with:
       account: all
+      region: all
+      component: all
       terragrunt_action: ${{ inputs.terragrunt_action }}
     secrets: inherit
