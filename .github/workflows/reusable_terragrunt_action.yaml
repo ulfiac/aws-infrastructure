@@ -60,7 +60,7 @@ permissions:
 
 jobs:
   reusable-terragrunt-action:
-    name: "${{ inputs.terragrunt_action }}: ${{ inputs.working_dir }}"
+    name: ${{ inputs.terragrunt_action }}
     runs-on: ubuntu-latest
     defaults:
       run:
