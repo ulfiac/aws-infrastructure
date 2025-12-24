@@ -4,5 +4,9 @@ locals {
 }
 
 inputs = {
-  launch_an_instance_using_ec2 = false
+  create_lambda        = false
+  create_rds_database  = false
+  launch_ec2_instance  = false
+  setup_cost_budget    = false
+  use_foundation_model = false
 }
