@@ -1,7 +1,7 @@
 variable "allow_users_to_change_password" {
   description = "Whether to allow IAM users to change their own password."
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "hard_expiry" {
