@@ -1,0 +1,14 @@
+include "root" {
+  path = find_in_parent_folders("root.hcl")
+}
+
+include "component" {
+  path   = "${dirname(find_in_parent_folders("root.hcl"))}/_components/account_password_policy.hcl"
+  expose = true
+}
+
+terraform {
+  source = "${include.component.locals.source_path}"
+}
+
+inputs = {}
