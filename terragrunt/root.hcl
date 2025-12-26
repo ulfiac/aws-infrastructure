@@ -14,6 +14,11 @@ locals {
   aws_account_name = local.account_vars.locals.aws_account_name
   aws_account_id   = local.account_vars.locals.aws_account_id
   aws_region       = local.region_vars.locals.aws_region
+
+  default_tags = {
+    created_by = "terragrunt/terraform"
+    repo       = "infrastructure"
+  }
 }
 
 generate "providers" {
@@ -22,17 +27,16 @@ generate "providers" {
   contents  = <<EOF
 
 %{if contains(local.providers, "aws")}
-module "tags" {
-  source  = "git::https://github.com/ulfiac/terraform-infrastructure-modules.git//modules/tags?ref=main"
-  project = "infra"
-}
-
 provider "aws" {
   allowed_account_ids = ["${local.aws_account_id}"]
   region              = "${local.aws_region}"
 
   default_tags {
-    tags = module.tags.all_the_tags
+    tags = {
+      %{for key, value in local.default_tags}
+        ${key} = "${value}"
+      %{endfor}
+    }
   }
 }
 %{endif}
