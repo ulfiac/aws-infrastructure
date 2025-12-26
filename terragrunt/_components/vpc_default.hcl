@@ -14,8 +14,9 @@ locals {
 
   # Expose the base source URL so different versions of the module can be deployed in different environments.
   # source_url     = "git::git@github.com:ulfiac/terraform-infrastructure-modules.git//modules/vpc_default"
-  source_url     = "git::https://github.com/ulfiac/terraform-infrastructure-modules.git//modules/vpc_default"
-  source_version = "main"
+  source_path = "${dirname(find_in_parent_folders("root.hcl"))}/_modules/vpc_default"
+  # source_url     = "git::https://github.com/ulfiac/terraform-infrastructure-modules.git//modules/vpc_default"
+  # source_version = "main"
 }
 
 # ---------------------------------------------------------------------------------------------------------------------

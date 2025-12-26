@@ -13,7 +13,7 @@ dependencies {
 }
 
 terraform {
-  source = "${include.component.locals.source_url}?ref=${include.component.locals.source_version}"
+  source = "${include.component.locals.source_path}"
 }
 
 inputs = {}
