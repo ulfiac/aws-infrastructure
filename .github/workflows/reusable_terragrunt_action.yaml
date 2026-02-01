@@ -145,10 +145,20 @@ jobs:
           role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/${{ vars.OIDC_ROLE_TO_ASSUME }}
           aws-region: ${{ inputs.aws_region == '_global' && 'us-east-2' || inputs.aws_region }}
 
-      - name: dump context
-        uses: ulfiac/common-reusables/.github/actions/dump_context@main
-        with:
-          annotate: ${{ inputs.annotate_context_details }}
+      - name: dump context (script)
+        env:
+          ANNOTATE: ${{ inputs.annotate_context_details }}
+          CONTEXT_ENV: ${{ toJson(env) }}
+          CONTEXT_GITHUB: ${{ toJson(github) }}
+          CONTEXT_INPUTS: ${{ toJson(inputs) }}
+          CONTEXT_JOB: ${{ toJson(job) }}
+          CONTEXT_MATRIX: ${{ toJson(matrix) }}
+          CONTEXT_NEEDS: ${{ toJson(needs) }}
+          CONTEXT_RUNNER: ${{ toJson(runner) }}
+          CONTEXT_STEPS: ${{ toJson(steps) }}
+          CONTEXT_STRATEGY: ${{ toJson(strategy) }}
+          CONTEXT_VARS: ${{ toJson(vars) }}
+        run: ${{ github.workspace }}/scripts/dump_context.sh
 
       - name: terragrunt plan
         if: ${{ inputs.terragrunt_action == 'plan' }}
