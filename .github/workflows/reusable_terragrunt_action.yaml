@@ -29,13 +29,14 @@ on:
       terragrunt_action:
         required: true
         type: string
-      terragrunt_all:
-        required: true
-        type: boolean
       terragrunt_parallelism:
         default: true
         required: false
         type: boolean
+      terragrunt_queue_include_dir:
+        default: "./**"
+        required: false
+        type: string
       working_dir:
         required: true
         type: string
@@ -76,14 +77,14 @@ on:
           - destroy
         required: true
         type: choice
-      terragrunt_all:
-        default: true
-        required: true
-        type: boolean
       terragrunt_parallelism:
         default: true
         required: false
         type: boolean
+      terragrunt_queue_include_dir:
+        default: "./**"
+        required: false
+        type: string
       working_dir:
         required: true
         type: string
@@ -108,9 +109,10 @@ jobs:
     environment: ${{ inputs.github_environment }}
     env:
       GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
-      TG_ALL: ${{ inputs.terragrunt_all == true && 'true' || 'false' }}
+      TG_ALL: "true"
       TG_NON_INTERACTIVE: "true"
       TG_PARALLELISM: ${{ inputs.terragrunt_parallelism == true && 10 || 1 }}
+      TG_QUEUE_INCLUDE_DIR: ${{ inputs.terragrunt_queue_include_dir }}
       TG_SUMMARY_PER_UNIT: "true"
       TG_VAR_AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
       TG_VAR_EMAIL_SNS: ${{ secrets.EMAIL_SNS }}

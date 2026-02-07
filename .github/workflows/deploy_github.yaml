@@ -64,7 +64,7 @@ jobs:
       aws_region: us-east-2
       github_environment: github
       terragrunt_action: ${{ inputs.terragrunt_action }}
-      terragrunt_all: ${{ inputs.name == 'all' && true || false }}
       terragrunt_parallelism: ${{ inputs.terragrunt_parallelism }}
-      working_dir: ${{ inputs.name == 'all' && format('github/{0}', matrix.type) || format('github/{0}/{1}', matrix.type, inputs.name) }}
+      terragrunt_queue_include_dir: ${{ inputs.name == 'all' && './**' || format('./{0}', inputs.name) }}
+      working_dir: "./github/${{ matrix.type }}"
     secrets: inherit
