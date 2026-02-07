@@ -44,6 +44,10 @@ on:
         default: true
         required: false
         type: boolean
+      terragrunt_strict_mode:
+        default: true
+        required: false
+        type: boolean
 
 permissions:
   contents: read
@@ -66,5 +70,6 @@ jobs:
       terragrunt_action: ${{ inputs.terragrunt_action }}
       terragrunt_parallelism: ${{ inputs.terragrunt_parallelism }}
       terragrunt_queue_include_dir: ${{ inputs.name == 'all' && './**' || format('./{0}', inputs.name) }}
+      terragrunt_strict_mode: ${{ inputs.terragrunt_strict_mode }}
       working_dir: "./github/${{ matrix.type }}"
     secrets: inherit

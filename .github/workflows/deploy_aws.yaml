@@ -54,6 +54,10 @@ on:
         default: true
         required: false
         type: boolean
+      terragrunt_strict_mode:
+        default: true
+        required: false
+        type: boolean
 
 permissions:
   contents: read
@@ -77,5 +81,6 @@ jobs:
       terragrunt_action: ${{ inputs.terragrunt_action }}
       terragrunt_parallelism: ${{ inputs.terragrunt_parallelism }}
       terragrunt_queue_include_dir: ${{ inputs.component == 'all' && './**' || format('./{0}', inputs.component) }}
+      terragrunt_strict_mode: ${{ inputs.terragrunt_strict_mode }}
       working_dir: "./aws/${{ matrix.account }}/${{ matrix.region }}"
     secrets: inherit

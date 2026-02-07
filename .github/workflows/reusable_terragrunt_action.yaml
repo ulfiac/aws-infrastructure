@@ -37,6 +37,10 @@ on:
         default: "./**"
         required: false
         type: string
+      terragrunt_strict_mode:
+        default: true
+        required: false
+        type: boolean
       working_dir:
         required: true
         type: string
@@ -85,6 +89,10 @@ on:
         default: "./**"
         required: false
         type: string
+      terragrunt_strict_mode:
+        default: true
+        required: false
+        type: boolean
       working_dir:
         required: true
         type: string
@@ -113,6 +121,7 @@ jobs:
       TG_NON_INTERACTIVE: "true"
       TG_PARALLELISM: ${{ inputs.terragrunt_parallelism == true && 10 || 1 }}
       TG_QUEUE_INCLUDE_DIR: ${{ inputs.terragrunt_queue_include_dir }}
+      TG_STRICT_MODE: ${{ inputs.terragrunt_strict_mode }}
       TG_SUMMARY_PER_UNIT: "true"
       TG_VAR_AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
       TG_VAR_EMAIL_SNS: ${{ secrets.EMAIL_SNS }}
