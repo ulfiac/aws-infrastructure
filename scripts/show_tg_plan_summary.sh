@@ -98,32 +98,16 @@ add_reset_after_pattern() {
 }
 
 # This function processes terragrunt plan output lines to extract and format plan summaries.
-# It handles both single-unit and multi-unit terragrunt runs based on the TG_ALL environment variable.
 #
-# Environment Variables:
-#   TG_ALL - if "true", formats for multiple units; if "false", formats for a single unit
-#
-# Input Format (single unit):
-#   00:00:00.000 STDOUT terraform: Plan: 2 to add, 0 to change, 1 to destroy.
-#
-# Input Format (multiple units):
+# Input Format:
 #   00:00:00.000 STDOUT [logs] terraform: Plan: 2 to add, 0 to change, 1 to destroy.
 #
-# Output Format (both modes):
-#   [unit-name]    Plan: 2 to add, 0 to change, 1 to destroy.
-#
 # Processing Logic:
-#   Multiple units mode (TG_ALL=true):
-#     - Extract unit name from field 3 (already in [brackets])
-#     - Remove fields 1-4: timestamp, "STDOUT", unit name, "terraform:"
-#     - Format: unit | remaining text
+#   - Extract unit name from field 3 (already in [brackets])
+#   - Remove fields 1-4: timestamp, "STDOUT", unit name, "terraform:"
+#   - Format: unit | remaining text
 #
-#   Single unit mode (TG_ALL=false):
-#     - Derive unit name from current directory: $(basename "$(pwd)")
-#     - Remove fields 1-3: timestamp, "STDOUT", "terraform:"
-#     - Format: [unit] | remaining text
-#
-# awk command breakdown (multiple units):
+# awk command breakdown:
 #   '{unit=$3;                  : get the unit name from the third field (including brackets)
 #   $1=$2=$3=$4="";             : remove first four fields (timestamp, "STDOUT", unit name, and "terraform:")
 #   sub(/^[ \t]+/, "")          : trim leading whitespace left over from removed fields
@@ -131,41 +115,13 @@ add_reset_after_pattern() {
 #                                 - "" replaces them with nothing
 #   print unit "|" $0           : output unit name, pipe separator, and cleaned remaining text
 #
-# awk command breakdown (single unit):
-#   -v unit="[$unit]"           : set awk variable 'unit' to the current unit name in square brackets
-#   $1=$2=$3="";                : remove first three fields (timestamp, "STDOUT", and "terraform:")
-#   sub(/^[ \t]+/, "")          : trim leading whitespace left over from removed fields
-#   print unit "|" $0           : output unit name, pipe separator, and cleaned remaining text
-#
-# Post-processing:
-#   - remove_reset                 : remove any reset ANSI color codes
-#                                    - terragrunt plan output includes reset codes that interfere with column alignment
-#   - replace_bold_with_reset      : replace any bold ANSI color codes with reset codes
-#                                    - after removing all the reset codes, there's a bold in exactly the right place where a reset should be
-#   - move_delimiter               : move the '|' delimiter after the reset code
-#                                    - the delimiter added by the awk needs to be after the reset code for proper alignment
-#   - column -t -s "|"             : align columns using '|' as separator
-#   - sort_on_text_not_color_codes : sort lines while preserving ANSI color codes
-#   - || true                      : prevent errors if no matches found
 format_units() {
-  if [ "$TG_ALL" = "true" ]; then
-    # multiple units
-    awk '{unit=$3; $1=$2=$3=$4=""; sub(/^[ \t]+/, ""); print unit "|" $0}' | \
-    remove_reset | \
-    replace_bold_with_reset | \
-    move_delimiter | \
-    column -t -s "|" |  # align columns, delimiter is '|'
-    sort_on_text_not_color_codes || true
-  else
-    # single unit
-    unit=$(basename "$(pwd)")
-    awk -v unit="[$unit]" '{$1=$2=$3=""; sub(/^[ \t]+/, ""); print unit "|" $0}' | \
-    remove_reset | \
-    replace_bold_with_reset | \
-    move_delimiter | \
-    column -t -s "|" |  # align columns, delimiter is '|'
-    sort_on_text_not_color_codes || true
-  fi
+  awk '{unit=$3; $1=$2=$3=$4=""; sub(/^[ \t]+/, ""); print unit "|" $0}' | \
+  remove_reset | \
+  replace_bold_with_reset | \
+  move_delimiter | \
+  column -t -s "|" |  # align columns, delimiter is '|'
+  sort_on_text_not_color_codes || true
 }
 
 # This function processes terragrunt plan output lines to extract and format resource change summaries.
