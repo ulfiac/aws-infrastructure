@@ -75,7 +75,7 @@ jobs:
       aws_region: ${{ matrix.region }}
       github_environment: aws_${{ matrix.account }}
       terragrunt_action: ${{ inputs.terragrunt_action }}
-      terragrunt_all: ${{ inputs.component == 'all' && true || false }}
       terragrunt_parallelism: ${{ inputs.terragrunt_parallelism }}
-      working_dir: ${{ inputs.component == 'all' && format('aws/{0}/{1}', matrix.account, matrix.region) || format('aws/{0}/{1}/{2}', matrix.account, matrix.region, inputs.component) }}
+      terragrunt_queue_include_dir: ${{ inputs.component == 'all' && './**' || format('./{0}', inputs.component) }}
+      working_dir: "./aws/${{ matrix.account }}/${{ matrix.region }}"
     secrets: inherit
