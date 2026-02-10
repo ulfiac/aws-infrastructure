@@ -1,9 +1,22 @@
 #!/bin/bash
 set -euo pipefail
 
-#
-# constants
-#
+# input: the terraform action ('plan' or 'plan destroy')
+tf_action="${1-}"
+
+# validate input parameter tf_action exists
+if [[ -z "${tf_action}" ]]; then
+  echo "Error: Missing terraform action. Expected 'plan' or 'plan destroy'." >&2
+  exit 1
+fi
+
+# validate tf_action value
+if [[ "${tf_action}" != "plan" && "${tf_action}" != "plan destroy" ]]; then
+  echo "Error: invalid tf_action '${tf_action}'. Expected 'plan' or 'plan destroy'." >&2
+  exit 1
+fi
+
+# constant for the terraform output binary filename
 TFPLAN_BINARY='tfplan.binary'
 
 #
@@ -11,7 +24,7 @@ TFPLAN_BINARY='tfplan.binary'
 #
 
 get_unit_summary_content() {
-  grep 'STDOUT' |grep -E '(No changes|Plan:)' || true
+  grep 'STDOUT' | grep -E '(No changes|Plan:)' || true
 }
 
 get_resource_summary_content() {
@@ -307,6 +320,4 @@ echo "$rendered_output_for_github_actions_log"
 echo "$rendered_output_for_github_step_summary" >> "$GITHUB_STEP_SUMMARY"
 
 # annotate
-if [ "$ANNOTATE_PLAN_SUMMARY" = "true" ]; then
-  echo -e "\n::notice::Plan summary.\n"
-fi
+echo -e "\n::notice::${tf_action^} summary.\n"

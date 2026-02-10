@@ -24,20 +24,8 @@ on:
           - destroy
         required: true
         type: choice
-      annotate_apply_details:
-        default: false
-        required: false
-        type: boolean
       annotate_context_details:
         default: false
-        required: false
-        type: boolean
-      annotate_plan_details:
-        default: false
-        required: false
-        type: boolean
-      annotate_plan_summary:
-        default: true
         required: false
         type: boolean
       terragrunt_parallelism:
@@ -61,10 +49,7 @@ jobs:
         type: ${{ fromJson(inputs.type == 'all' && '["repo"]' || format('["{0}"]', inputs.type)) }}
     uses: ./.github/workflows/reusable_terragrunt_action.yaml
     with:
-      annotate_apply_details: ${{ inputs.annotate_apply_details }}
       annotate_context_details: ${{ inputs.annotate_context_details }}
-      annotate_plan_details: ${{ inputs.annotate_plan_details }}
-      annotate_plan_summary: ${{ inputs.annotate_plan_summary }}
       aws_region: us-east-2
       github_environment: github
       terragrunt_action: ${{ inputs.terragrunt_action }}
