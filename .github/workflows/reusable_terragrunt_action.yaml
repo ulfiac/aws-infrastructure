@@ -4,20 +4,8 @@ run-name: "${{ inputs.terragrunt_action }}: ${{ inputs.working_dir }}"
 on:
   workflow_call:
     inputs:
-      annotate_apply_details:
-        default: false
-        required: false
-        type: boolean
       annotate_context_details:
         default: false
-        required: false
-        type: boolean
-      annotate_plan_details:
-        default: false
-        required: false
-        type: boolean
-      annotate_plan_summary:
-        default: true
         required: false
         type: boolean
       aws_region:
@@ -46,20 +34,8 @@ on:
         type: string
   workflow_dispatch:
     inputs:
-      annotate_apply_details:
-        default: false
-        required: false
-        type: boolean
       annotate_context_details:
         default: false
-        required: false
-        type: boolean
-      annotate_plan_details:
-        default: false
-        required: false
-        type: boolean
-      annotate_plan_summary:
-        default: true
         required: false
         type: boolean
       aws_region:
@@ -175,30 +151,30 @@ jobs:
         if: ${{ inputs.terragrunt_action == 'plan' }}
         run: |
           terragrunt plan -out=tfplan.binary
-          if [ "${{ inputs.annotate_plan_details }}" = "true" ]; then echo -e "\n::notice::Plan details.\n"; fi
 
       - name: terragrunt plan destroy
         if: ${{ inputs.terragrunt_action == 'plan destroy' }}
         run: |
           terragrunt plan -destroy -out=tfplan.binary
-          if [ "${{ inputs.annotate_plan_details }}" = "true" ]; then echo -e "\n::notice::Plan destroy details.\n"; fi
 
       - name: show plan summary
         if: ${{ inputs.terragrunt_action == 'plan' || inputs.terragrunt_action == 'plan destroy' }}
-        env:
-          ANNOTATE_PLAN_SUMMARY: ${{ inputs.annotate_plan_summary }}
-        run: ${{ github.workspace }}/scripts/show_tg_plan_summary.sh
+        run: |
+          ${{ github.workspace }}/scripts/show_tg_plan_summary.sh "${{ inputs.terragrunt_action }}"
 
       - name: terragrunt apply
         if: ${{ inputs.terragrunt_action == 'apply' }}
         run: |
           set -o pipefail
-          terragrunt apply -auto-approve
-          if [ "${{ inputs.annotate_apply_details }}" = "true" ]; then echo -e "\n::notice::Apply details.\n"; fi
+          terragrunt apply -auto-approve 2>&1 | tee tfapply.out
 
       - name: terragrunt destroy
         if: ${{ inputs.terragrunt_action == 'destroy' }}
         run: |
           set -o pipefail
-          terragrunt apply -destroy -auto-approve
-          if [ "${{ inputs.annotate_apply_details }}" = "true" ]; then echo -e "\n::notice::Destroy details.\n"; fi
+          terragrunt apply -destroy -auto-approve 2>&1 | tee tfdestroy.out
+
+      - name: show apply summary
+        if: ${{ inputs.terragrunt_action == 'apply' || inputs.terragrunt_action == 'destroy' }}
+        run: |
+          ${{ github.workspace }}/scripts/show_tg_apply_summary.sh "${{ inputs.terragrunt_action }}"
