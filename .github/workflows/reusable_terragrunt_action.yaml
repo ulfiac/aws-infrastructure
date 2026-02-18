@@ -94,6 +94,7 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
       TG_ALL: "true"
+      TG_DESTROY_DEPENDENCIES_CHECK: "true"
       TG_NON_INTERACTIVE: "true"
       TG_PARALLELISM: ${{ inputs.terragrunt_parallelism == true && 10 || 1 }}
       TG_QUEUE_INCLUDE_DIR: ${{ inputs.terragrunt_queue_include_dir }}
