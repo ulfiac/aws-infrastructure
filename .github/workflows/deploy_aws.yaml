@@ -53,7 +53,7 @@ permissions:
 
 jobs:
   deploy-aws:
-    name: ${{ inputs.component == 'all' && format('aws/{0}/{1}', matrix.account, matrix.region) || format('aws/{0}/{1}/{2}', matrix.account, matrix.region, inputs.component) }}
+    name: "aws/${{ matrix.account }}/${{ matrix.region }}/${{ inputs.component }}"
     strategy:
       matrix:
         account: ${{ fromJson(inputs.account == 'all' && '["mgmt"]' || format('["{0}"]', inputs.account)) }}
