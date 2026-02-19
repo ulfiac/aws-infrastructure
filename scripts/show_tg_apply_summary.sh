@@ -106,12 +106,25 @@ format_units() {
   sort_on_text_not_color_codes || true
 }
 
+colorize_with_regex() {
+  local regex=$1
+  local color=$2
+  sed -E "s/($regex)/\x1b[${color}m\1\x1b[0m/g"  # add color code around regex, all matches
+}
+
+colorize_unit_summary() {
+  colorize_with_regex '[1-9][0-9]* added' '32' |    # for lines with non-zero add count, colorize 'added' in green
+  colorize_with_regex '[1-9][0-9]* changed' '33' |  # for lines with non-zero change count, colorize 'changed' in yellow
+  colorize_with_regex '[1-9][0-9]* destroyed' '31'  # for lines with non-zero destroy count, colorize 'destroyed' in red
+}
+
 build_unit_summary() {
   local color_mode="$1"
 
   if [ "$color_mode" = 'with_color' ]; then
     get_unit_summary_content | \
-    format_units
+    format_units | \
+    colorize_unit_summary
   else
     get_unit_summary_content | \
     format_units
