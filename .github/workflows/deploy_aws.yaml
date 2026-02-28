@@ -1,17 +1,17 @@
 name: deploy aws
-run-name: "${{ inputs.terragrunt_action }}: aws, ${{ inputs.account }}, ${{ inputs.region }}, ${{ inputs.component }}"
+run-name: "${{ inputs.terragrunt_action }}: aws, ${{ inputs.aws_account }}, ${{ inputs.aws_region }}, ${{ inputs.component }}"
 
 on:
   workflow_dispatch:
     inputs:
-      account:
+      aws_account:
         default: all
         options:
           - all
           - mgmt
         required: true
         type: choice
-      region:
+      aws_region:
         default: all
         options:
           - all
@@ -38,6 +38,10 @@ on:
         default: false
         required: false
         type: boolean
+      skip_approval:
+        default: false
+        required: false
+        type: boolean
       terragrunt_parallelism:
         default: true
         required: false
@@ -52,20 +56,61 @@ permissions:
   id-token: write
 
 jobs:
-  deploy-aws:
-    name: "aws/${{ matrix.account }}/${{ matrix.region }}/${{ inputs.component }}"
-    strategy:
-      matrix:
-        account: ${{ fromJson(inputs.account == 'all' && '["mgmt"]' || format('["{0}"]', inputs.account)) }}
-        region: ${{ fromJson(inputs.region == 'all' && '["_global","ca-central-1","us-east-1","us-east-2"]' || format('["{0}"]', inputs.region)) }}
-    uses: ./.github/workflows/reusable_terragrunt_action.yaml
+  set-plan-action:
+    name: set plan action
+    runs-on: ubuntu-latest
+    outputs:
+      plan_action: ${{ steps.set-plan-action.outputs.plan_action }}
+    steps:
+      - name: set plan action
+        id: set-plan-action
+        run: |
+          case "${{ inputs.terragrunt_action }}" in
+            "plan"|"apply")
+              echo "plan_action=plan" >> "$GITHUB_OUTPUT"
+              ;;
+            "plan destroy"|"destroy")
+              echo "plan_action=plan destroy" >> "$GITHUB_OUTPUT"
+              ;;
+            *)
+              echo "Unexpected terragrunt_action: ${{ inputs.terragrunt_action }}"
+              exit 1
+              ;;
+          esac
+
+  plan:
+    uses: ./.github/workflows/reusable_deploy_aws_accounts.yaml
+    needs: set-plan-action
     with:
       annotate_context_details: ${{ inputs.annotate_context_details }}
-      aws_region: ${{ matrix.region }}
-      github_environment: aws_${{ matrix.account }}
+      aws_account: ${{ inputs.aws_account }}
+      aws_region: ${{ inputs.aws_region }}
+      component: ${{ inputs.component }}
+      terragrunt_action: ${{ needs.set-plan-action.outputs.plan_action }}
+      terragrunt_parallelism: ${{ inputs.terragrunt_parallelism }}
+      terragrunt_strict_mode: ${{ inputs.terragrunt_strict_mode }}
+    secrets: inherit
+
+  get-approval:
+    name: get approval
+    runs-on: ubuntu-latest
+    if: ${{ inputs.terragrunt_action == 'apply' || inputs.terragrunt_action == 'destroy' }}
+    environment: approval_required
+    needs: plan
+    steps:
+      - name: approval requested
+        run: echo 'Approval provided. Job will continue.'
+
+  apply:
+    uses: ./.github/workflows/reusable_deploy_aws_accounts.yaml
+    if: ${{ inputs.terragrunt_action == 'apply' || inputs.terragrunt_action == 'destroy' }}
+    needs: get-approval
+    with:
+      annotate_context_details: ${{ inputs.annotate_context_details }}
+      aws_account: ${{ inputs.aws_account }}
+      aws_region: ${{ inputs.aws_region }}
+      component: ${{ inputs.component }}
       terragrunt_action: ${{ inputs.terragrunt_action }}
       terragrunt_parallelism: ${{ inputs.terragrunt_parallelism }}
-      terragrunt_queue_include_dir: ${{ inputs.component == 'all' && './**' || format('./{0}', inputs.component) }}
       terragrunt_strict_mode: ${{ inputs.terragrunt_strict_mode }}
-      working_dir: "./aws/${{ matrix.account }}/${{ matrix.region }}"
     secrets: inherit
