@@ -1,4 +1,4 @@
-name: deploy aws regions
+name: reusable deploy aws regions
 run-name: "${{ inputs.terragrunt_action }}: aws, ${{ inputs.aws_account }}, ${{ inputs.aws_region }}, ${{ inputs.component }}"
 
 on:
