@@ -78,7 +78,7 @@ permissions:
 
 jobs:
   deploy-aws-regions:
-    name: "aws/${{ inputs.aws_account }}/${{ matrix.aws_region }}/${{ inputs.component }}"
+    name: ${{ matrix.aws_region }}
     strategy:
       matrix:
         aws_region: ${{ fromJson(inputs.aws_region == 'all' && '["_global","ca-central-1","us-east-1","us-east-2"]' || format('["{0}"]', inputs.aws_region)) }}
