@@ -40,7 +40,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| email\_sns | The email address for SNS billing notifications. | `string` | n/a | yes |
+| aws\_account\_email | The email address for SNS billing notifications. | `string` | n/a | yes |
 
 ## Outputs
 

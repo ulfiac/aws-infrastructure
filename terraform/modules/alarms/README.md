@@ -41,7 +41,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| email\_sns | The email address for SNS alarm notifications. | `string` | n/a | yes |
+| aws\_account\_email | The email address for SNS alarm notifications. | `string` | n/a | yes |
 | log\_group\_name\_for\_cloudtrail | The name of the CloudWatch log group for CloudTrail. | `string` | n/a | yes |
 
 ## Outputs

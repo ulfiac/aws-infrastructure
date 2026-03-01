@@ -16,7 +16,7 @@ resource "aws_sns_topic" "monthly_budget" {
 resource "aws_sns_topic_subscription" "monthly_budget" {
   topic_arn = aws_sns_topic.monthly_budget.arn
   protocol  = "email"
-  endpoint  = var.email_sns
+  endpoint  = var.aws_account_email
 }
 
 resource "aws_budgets_budget" "monthly_budget" {
