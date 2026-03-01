@@ -95,7 +95,7 @@ jobs:
     name: get approval
     runs-on: ubuntu-latest
     if: ${{ inputs.terragrunt_action == 'apply' || inputs.terragrunt_action == 'destroy' }}
-    environment: approval_required
+    environment: ${{ inputs.skip_approval == true && 'approval_skipped' || 'approval_required' }}
     needs: plan
     steps:
       - name: approval requested
