@@ -3,7 +3,7 @@ variable "log_group_name_for_cloudtrail" {
   type        = string
 }
 
-variable "email_sns" {
+variable "aws_account_email" {
   description = "The email address for SNS alarm notifications."
   type        = string
   sensitive   = true
