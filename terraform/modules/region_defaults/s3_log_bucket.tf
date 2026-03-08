@@ -102,7 +102,7 @@ data "aws_iam_policy_document" "logs" {
     resources = ["${aws_s3_bucket.logs.arn}/*"]
 
     condition {
-      test     = "StringNotEquals"
+      test     = "StringNotEqualsIfExists"
       variable = "s3:x-amz-server-side-encryption"
       values   = ["AES256"]
     }
@@ -114,17 +114,10 @@ data "aws_iam_policy_document" "logs" {
   }
 
   statement {
-    sid       = "DenyAbsentEncryptionHeader"
-    actions   = ["s3:PutObject"]
+    sid       = "DenyObjectDeletion"
+    actions   = ["s3:DeleteObject", "s3:DeleteObjectVersion"]
     effect    = "Deny"
     resources = ["${aws_s3_bucket.logs.arn}/*"]
-
-    condition {
-      test     = "Null"
-      variable = "s3:x-amz-server-side-encryption"
-      values   = ["true"]
-    }
-
     principals {
       type        = "*"
       identifiers = ["*"]
