@@ -40,5 +40,5 @@ output "local_availability_zones" {
 
 output "local_region" {
   description = "The calculated region"
-  value       = var.verbose_output ? local.region : null
+  value       = var.verbose_output ? local.aws_region : null
 }
