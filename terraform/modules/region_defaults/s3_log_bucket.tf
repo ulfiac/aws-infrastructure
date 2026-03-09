@@ -71,7 +71,9 @@ resource "aws_s3_bucket_ownership_controls" "logs" {
 }
 
 data "aws_iam_policy_document" "logs" {
-  source_policy_documents   = []
+  source_policy_documents = [
+    data.aws_iam_policy_document.default_vpc_flow_logs.json,
+  ]
   override_policy_documents = []
 
   statement {
