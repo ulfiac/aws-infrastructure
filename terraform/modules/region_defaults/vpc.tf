@@ -12,7 +12,6 @@ resource "aws_default_subnet" "adopted" {
 }
 
 #trivy:ignore:AVD-AWS-0101 (HIGH): Default VPC is used.
-#trivy:ignore:AVD-AWS-0178 (MEDIUM): VPC does not have VPC Flow Logs enabled.
 resource "aws_default_vpc" "adopted" {
   enable_dns_hostnames = true
   enable_dns_support   = true
