@@ -102,7 +102,7 @@ jobs:
       TG_VAR_AWS_ACCOUNT_EMAIL: ${{ secrets.AWS_ACCOUNT_EMAIL }}
       TG_VAR_AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
     steps:
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1, released 2025-11, checked 2025-12
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2, released 2026-01, checked 2026-03
       - run: pwd
 
       - run: shasum --version
@@ -113,7 +113,7 @@ jobs:
       #     GPG_PUBLIC_KEY_BINARY_BASE64: ${{ vars.GPG_PUBLIC_KEY_BINARY_BASE64 }}
       #   run: ${{ github.workspace }}/scripts/add_gpg_public_key.sh
 
-      - uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd # v3.1.2, released 2024-08, checked 2025-12
+      - uses: hashicorp/setup-terraform@5e8dbf3c6d9deaf4193ca7a8fb23f2ac83bb6c85 # v4.0.0, released 2026-02, checked 2026-03
         with:
           terraform_wrapper: false
       - run: terraform --version
@@ -127,7 +127,7 @@ jobs:
       - run: aws --version
 
       - name: configure aws credentials with oidc
-        uses: aws-actions/configure-aws-credentials@61815dcd50bd041e203e49132bacad1fd04d2708 # v5.1.1, released 2025-11, checked 2025-12
+        uses: aws-actions/configure-aws-credentials@8df5847569e6427dd6c4fb1cf565c83acfa8afa7 # v6.0.0, released 2026-02, checked 2026-03
         with:
           role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/${{ vars.OIDC_ROLE_TO_ASSUME }}
           aws-region: ${{ inputs.aws_region == '_global' && 'us-east-2' || inputs.aws_region }}
