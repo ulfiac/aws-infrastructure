@@ -4,6 +4,12 @@ resource "aws_flow_log" "default_vpc" {
   max_aggregation_interval = 600   # must be either 60 or 600
   traffic_type             = "ALL" # must be either ACCEPT, REJECT or ALL
   vpc_id                   = aws_default_vpc.adopted.id
+
+  destination_options {
+    file_format                = "parquet"
+    hive_compatible_partitions = false
+    per_hour_partition         = false
+  }
 }
 
 data "aws_iam_policy_document" "default_vpc_flow_logs" {
