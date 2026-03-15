@@ -28,7 +28,7 @@ get_unit_summary_content() {
 }
 
 get_resource_summary_content() {
-  grep 'STDOUT' | grep '#' | grep -v -E "(unchanged|depends on a resource or a module with changes pending|config refers to values not yet known)" || true
+  grep 'STDOUT' | grep '#' | grep -v -E "(unchanged|depends on a resource or a module with changes pending|config refers to values not yet known|is not in configuration)" || true
 }
 
 # extract unit name from a line like "[unit-name]    Plan: 2 to add, 0 to change, 1 to destroy."
