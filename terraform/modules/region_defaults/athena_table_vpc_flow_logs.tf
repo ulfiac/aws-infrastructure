@@ -14,7 +14,7 @@ resource "aws_glue_catalog_table" "vpc_flow_logs" {
     "projection.day.interval.unit" = "DAYS"
     "projection.day.range"         = "2025/01/01,NOW"
     "projection.day.type"          = "date"
-    "storage.location.template"    = "s3://${aws_s3_bucket.logs.bucket}/vpcflow/AWSLogs/${local.aws_account_id}/vpcflowlogs/${local.aws_region}/$${day}"
+    "storage.location.template"    = "s3://${var.log_bucket_name}/vpcflow/AWSLogs/${local.aws_account_id}/vpcflowlogs/${local.aws_region}/$${day}"
   }
 
   partition_keys {
@@ -26,7 +26,7 @@ resource "aws_glue_catalog_table" "vpc_flow_logs" {
     bucket_columns            = []
     compressed                = false
     input_format              = "org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat"
-    location                  = "s3://${aws_s3_bucket.logs.bucket}/vpcflow/AWSLogs/${local.aws_account_id}/vpcflowlogs/${local.aws_region}/"
+    location                  = "s3://${var.log_bucket_name}/vpcflow/AWSLogs/${local.aws_account_id}/vpcflowlogs/${local.aws_region}/"
     number_of_buckets         = -1
     output_format             = "org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat"
     stored_as_sub_directories = false

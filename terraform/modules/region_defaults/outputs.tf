@@ -43,7 +43,7 @@ output "local_region" {
   value       = var.verbose_output ? local.aws_region : null
 }
 
-output "logs_bucket_name" {
-  description = "The name of the S3 bucket for logs"
-  value       = aws_s3_bucket.logs_bucket.name
+output "athena_database_name" {
+  description = "The name of the Athena database for logs"
+  value       = aws_athena_database.logs.name
 }
