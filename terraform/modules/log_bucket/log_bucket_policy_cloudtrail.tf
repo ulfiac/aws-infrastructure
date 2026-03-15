@@ -7,9 +7,9 @@ data "aws_iam_policy_document" "cloudtrail_logs" {
     resources = [aws_s3_bucket.logs.arn]
 
     condition {
-      test     = "StringEquals"
+      test     = "ArnLike"
       variable = "aws:SourceArn"
-      values   = ["arn:aws:cloudtrail:${local.aws_region}:${local.aws_account_id}:trail/*"]
+      values   = ["arn:aws:cloudtrail:*:${local.aws_account_id}:trail/*"]
     }
 
     principals {
@@ -31,9 +31,9 @@ data "aws_iam_policy_document" "cloudtrail_logs" {
     }
 
     condition {
-      test     = "StringEquals"
+      test     = "ArnLike"
       variable = "aws:SourceArn"
-      values   = ["arn:aws:cloudtrail:${local.aws_region}:${local.aws_account_id}:trail/*"]
+      values   = ["arn:aws:cloudtrail:*:${local.aws_account_id}:trail/*"]
     }
 
     principals {
