@@ -81,6 +81,7 @@ jobs:
   deploy-aws-accounts:
     name: ${{ matrix.aws_account }}
     strategy:
+      fail-fast: false
       matrix:
         aws_account: ${{ fromJson(inputs.aws_account == 'all' && '["mgmt"]' || format('["{0}"]', inputs.aws_account)) }}
     uses: ./.github/workflows/reusable_deploy_aws_regions.yaml
