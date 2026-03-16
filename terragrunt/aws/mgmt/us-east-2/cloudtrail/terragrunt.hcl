@@ -11,7 +11,7 @@ dependency "log_bucket" {
   config_path = "../log_bucket"
 
   mock_outputs = {
-    log_bucket_name = "log-bucket-${include.root.locals.merged_vars.aws_account_id}-${include.root.locals.merged_vars.aws_region}"
+    log_bucket_name = "logs-${include.root.locals.merged_vars.aws_account_id}-${include.root.locals.merged_vars.aws_region}"
   }
 }
 
