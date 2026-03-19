@@ -101,6 +101,8 @@ jobs:
       TG_SUMMARY_PER_UNIT: "true"
       TG_VAR_AWS_ACCOUNT_EMAIL: ${{ secrets.AWS_ACCOUNT_EMAIL }}
       TG_VAR_AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+      TG_VAR_EMAIL_DOMAIN: ${{ secrets.EMAIL_DOMAIN }}
+      TG_VAR_EMAIL_PREFIX: ${{ secrets.EMAIL_PREFIX }}
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2, released 2026-01, checked 2026-03
       - run: pwd
