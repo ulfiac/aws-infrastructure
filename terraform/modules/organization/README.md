@@ -24,11 +24,19 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [aws_organizations_organization.org](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/organizations_organization) | resource |
+| [aws_organizations_account.prod](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/organizations_account) | resource |
+| [aws_organizations_account.test](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/organizations_account) | resource |
+| [aws_organizations_organization.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/organizations_organization) | resource |
+| [aws_organizations_organizational_unit.workloads](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/organizations_organizational_unit) | resource |
+| [aws_organizations_organizational_unit.workloads_prod](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/organizations_organizational_unit) | resource |
+| [aws_organizations_organizational_unit.workloads_test](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/organizations_organizational_unit) | resource |
 
 ## Inputs
 
-No inputs.
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| email\_domain | The domain for the email address used for the organization accounts. | `string` | n/a | yes |
+| email\_prefix | The prefix for the email address used for the organization accounts. | `string` | n/a | yes |
 
 ## Outputs
 
