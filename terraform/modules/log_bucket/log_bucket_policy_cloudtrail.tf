@@ -19,16 +19,13 @@ data "aws_iam_policy_document" "cloudtrail_logs" {
   }
 
   statement {
-    sid       = "AllowCloudTrailWrite"
-    actions   = ["s3:PutObject"]
-    effect    = "Allow"
-    resources = ["${aws_s3_bucket.logs.arn}/cloudtrail/AWSLogs/${local.aws_account_id}/*"]
-
-    condition {
-      test     = "StringEquals"
-      variable = "s3:x-amz-acl"
-      values   = ["bucket-owner-full-control"]
-    }
+    sid     = "AllowCloudTrailWrite"
+    actions = ["s3:PutObject"]
+    effect  = "Allow"
+    resources = [
+      "${aws_s3_bucket.logs.arn}/cloudtrail/AWSLogs/${local.aws_account_id}/*",
+      "${aws_s3_bucket.logs.arn}/cloudtrail/AWSLogs/${local.aws_organization_id}/*",
+    ]
 
     condition {
       test     = "ArnLike"
