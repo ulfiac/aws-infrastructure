@@ -41,4 +41,3 @@ resource "aws_sns_topic_subscription" "alarms" {
   protocol  = "email"
   endpoint  = var.aws_account_email
 }
-

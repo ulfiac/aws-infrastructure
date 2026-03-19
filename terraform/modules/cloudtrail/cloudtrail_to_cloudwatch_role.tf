@@ -27,8 +27,8 @@ data "aws_iam_policy_document" "cloudtrail_to_cloudwatch_policy" {
       "logs:CreateLogStream",
     ]
     resources = [
-      for region in local.aws_regions_enabled :
-      "${aws_cloudwatch_log_group.cloudtrail.arn}:log-stream:${local.aws_account_id}_CloudTrail_${region}*"
+      for region_enabled in local.aws_regions_enabled :
+      "${aws_cloudwatch_log_group.cloudtrail.arn}:log-stream:*_CloudTrail_${region_enabled}*"
     ]
   }
 
@@ -39,8 +39,8 @@ data "aws_iam_policy_document" "cloudtrail_to_cloudwatch_policy" {
       "logs:PutLogEvents",
     ]
     resources = [
-      for region in local.aws_regions_enabled :
-      "${aws_cloudwatch_log_group.cloudtrail.arn}:log-stream:${local.aws_account_id}_CloudTrail_${region}*"
+      for region_enabled in local.aws_regions_enabled :
+      "${aws_cloudwatch_log_group.cloudtrail.arn}:log-stream:*_CloudTrail_${region_enabled}*"
     ]
   }
 }
