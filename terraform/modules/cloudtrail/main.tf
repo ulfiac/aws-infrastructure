@@ -1,7 +1,9 @@
 locals {
-  aws_account_id      = data.aws_caller_identity.current.account_id
-  aws_region          = data.aws_region.current.region
-  aws_regions_enabled = data.aws_regions.enabled.names
+  aws_account_id               = data.aws_caller_identity.current.account_id
+  aws_organization_id          = data.aws_organizations_organization.current.id
+  aws_organization_account_ids = [for account in data.aws_organizations_organization.current.accounts : account.id]
+  aws_region                   = data.aws_region.current.region
+  aws_regions_enabled          = data.aws_regions.enabled.names
 
   cloudtrail_athena_table_name = "cloudtrail_organization" # should be lowercase letters, numbers, or underscore
   cloudtrail_name              = "organization-trail-${local.aws_account_id}-${local.aws_region}"
@@ -17,5 +19,4 @@ locals {
   iam_role_name_cloudtrail_to_cloudwatch   = "cloudtrail-to-cloudwatch"
 
   sns_topic_name = "cloudwatch-alarms"
-
 }
