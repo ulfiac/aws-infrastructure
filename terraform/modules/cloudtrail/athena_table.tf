@@ -8,8 +8,6 @@ resource "aws_glue_catalog_table" "cloudtrail_logs" {
   parameters = {
     "EXTERNAL"                     = "TRUE",
     "projection.enabled"           = "true",
-    "projection.account_id.type"   = "enum",
-    "projection.account_id.values" = join(",", local.aws_organization_account_ids),
     "projection.day.format"        = "yyyy/MM/dd",
     "projection.day.interval"      = "1",
     "projection.day.interval.unit" = "DAYS",
@@ -17,12 +15,7 @@ resource "aws_glue_catalog_table" "cloudtrail_logs" {
     "projection.day.type"          = "date",
     "projection.region.type"       = "enum",
     "projection.region.values"     = join(",", local.aws_regions_enabled),
-    "storage.location.template"    = "s3://${var.log_bucket_name}/${local.cloudtrail_s3_key_prefix}/AWSLogs/${local.aws_organization_id}/$${account_id}/CloudTrail/$${region}/$${day}",
-  }
-
-  partition_keys {
-    name = "account_id"
-    type = "string"
+    "storage.location.template"    = "s3://${var.log_bucket_name}/${local.cloudtrail_s3_key_prefix}/AWSLogs/${local.aws_account_id}/CloudTrail/$${region}/$${day}",
   }
 
   partition_keys {
@@ -39,7 +32,7 @@ resource "aws_glue_catalog_table" "cloudtrail_logs" {
     bucket_columns            = []
     compressed                = false
     input_format              = "com.amazon.emr.cloudtrail.CloudTrailInputFormat"
-    location                  = "s3://${var.log_bucket_name}/${local.cloudtrail_s3_key_prefix}/AWSLogs/${local.aws_organization_id}/"
+    location                  = "s3://${var.log_bucket_name}/${local.cloudtrail_s3_key_prefix}/AWSLogs/${local.aws_account_id}/CloudTrail/"
     number_of_buckets         = -1
     output_format             = "org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat"
     stored_as_sub_directories = false
