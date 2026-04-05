@@ -23,7 +23,7 @@ data "aws_iam_policy_document" "cloudtrail_logs" {
     actions = ["s3:PutObject"]
     effect  = "Allow"
     resources = [
-      "${aws_s3_bucket.logs.arn}/cloudtrail/AWSLogs/${local.aws_organization_id}/*",
+      "${aws_s3_bucket.logs.arn}/cloudtrail/AWSLogs/${local.aws_account_id}/*",
     ]
 
     condition {
