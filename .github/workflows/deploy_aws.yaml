@@ -8,6 +8,8 @@ on:
         default: all
         options:
           - all
+          - green
+          - purple
           - mgmt
         required: true
         type: choice
