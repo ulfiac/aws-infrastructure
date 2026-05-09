@@ -38,6 +38,8 @@ on:
         default: all
         options:
           - all
+          - green
+          - purple
           - mgmt
         required: true
         type: choice
@@ -83,7 +85,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        aws_account: ${{ fromJson(inputs.aws_account == 'all' && '["mgmt"]' || format('["{0}"]', inputs.aws_account)) }}
+        aws_account: ${{ fromJson(inputs.aws_account == 'all' && '["green","purple","mgmt"]' || format('["{0}"]', inputs.aws_account)) }}
     uses: ./.github/workflows/reusable_deploy_aws_regions.yaml
     with:
       annotate_context_details: ${{ inputs.annotate_context_details }}
