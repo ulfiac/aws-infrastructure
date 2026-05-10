@@ -36,7 +36,7 @@ on:
           - destroy
         required: true
         type: choice
-      annotate_context_details:
+      dump_github_context:
         default: false
         required: false
         type: boolean
@@ -84,10 +84,10 @@ jobs:
     uses: ./.github/workflows/reusable_deploy_aws_accounts.yaml
     needs: set-plan-action
     with:
-      annotate_context_details: ${{ inputs.annotate_context_details }}
       aws_account: ${{ inputs.aws_account }}
       aws_region: ${{ inputs.aws_region }}
       component: ${{ inputs.component }}
+      dump_github_context: ${{ inputs.dump_github_context }}
       terragrunt_action: ${{ needs.set-plan-action.outputs.plan_action }}
       terragrunt_parallelism: ${{ inputs.terragrunt_parallelism }}
       terragrunt_strict_mode: ${{ inputs.terragrunt_strict_mode }}
@@ -108,10 +108,10 @@ jobs:
     if: ${{ inputs.terragrunt_action == 'apply' || inputs.terragrunt_action == 'destroy' }}
     needs: get-approval
     with:
-      annotate_context_details: ${{ inputs.annotate_context_details }}
       aws_account: ${{ inputs.aws_account }}
       aws_region: ${{ inputs.aws_region }}
       component: ${{ inputs.component }}
+      dump_github_context: ${{ inputs.dump_github_context }}
       terragrunt_action: ${{ inputs.terragrunt_action }}
       terragrunt_parallelism: ${{ inputs.terragrunt_parallelism }}
       terragrunt_strict_mode: ${{ inputs.terragrunt_strict_mode }}

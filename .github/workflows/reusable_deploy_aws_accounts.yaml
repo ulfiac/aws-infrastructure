@@ -4,10 +4,6 @@ run-name: "${{ inputs.terragrunt_action }}: aws, ${{ inputs.aws_account }}, ${{ 
 on:
   workflow_call:
     inputs:
-      annotate_context_details:
-        default: false
-        required: false
-        type: boolean
       aws_account:
         required: true
         type: string
@@ -17,6 +13,10 @@ on:
       component:
         required: true
         type: string
+      dump_github_context:
+        default: false
+        required: false
+        type: boolean
       terragrunt_action:
         required: true
         type: string
@@ -30,10 +30,6 @@ on:
         type: boolean
   workflow_dispatch:
     inputs:
-      annotate_context_details:
-        default: false
-        required: false
-        type: boolean
       aws_account:
         default: all
         options:
@@ -57,6 +53,10 @@ on:
         default: all
         required: true
         type: string
+      dump_github_context:
+        default: false
+        required: false
+        type: boolean
       terragrunt_action:
         default: plan
         options:
@@ -88,10 +88,10 @@ jobs:
         aws_account: ${{ fromJson(inputs.aws_account == 'all' && '["green","purple","mgmt"]' || format('["{0}"]', inputs.aws_account)) }}
     uses: ./.github/workflows/reusable_deploy_aws_regions.yaml
     with:
-      annotate_context_details: ${{ inputs.annotate_context_details }}
       aws_account: ${{ matrix.aws_account }}
       aws_region: ${{ inputs.aws_region }}
       component: ${{ inputs.component }}
+      dump_github_context: ${{ inputs.dump_github_context }}
       terragrunt_action: ${{ inputs.terragrunt_action }}
       terragrunt_parallelism: ${{ inputs.terragrunt_parallelism }}
       terragrunt_strict_mode: ${{ inputs.terragrunt_strict_mode }}

@@ -4,13 +4,13 @@ run-name: "${{ inputs.terragrunt_action }}: ${{ inputs.working_dir }}"
 on:
   workflow_call:
     inputs:
-      annotate_context_details:
-        default: false
-        required: false
-        type: boolean
       aws_region:
         required: true
         type: string
+      dump_github_context:
+        default: false
+        required: false
+        type: boolean
       github_environment:
         required: true
         type: string
@@ -34,14 +34,14 @@ on:
         type: string
   workflow_dispatch:
     inputs:
-      annotate_context_details:
-        default: false
-        required: false
-        type: boolean
       aws_region:
         default: us-east-2
         required: true
         type: string
+      dump_github_context:
+        default: false
+        required: false
+        type: boolean
       github_environment:
         default: aws_mgmt
         options:
@@ -136,9 +136,9 @@ jobs:
           role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/${{ secrets.OIDC_ROLE_TO_ASSUME }}
           aws-region: ${{ inputs.aws_region == '_global' && 'us-east-2' || inputs.aws_region }}
 
-      - name: dump context (script)
+      - name: dump github context (script)
+        if: ${{ inputs.dump_github_context }}
         env:
-          ANNOTATE: ${{ inputs.annotate_context_details }}
           CONTEXT_ENV: ${{ toJson(env) }}
           CONTEXT_GITHUB: ${{ toJson(github) }}
           CONTEXT_INPUTS: ${{ toJson(inputs) }}
@@ -149,7 +149,7 @@ jobs:
           CONTEXT_STEPS: ${{ toJson(steps) }}
           CONTEXT_STRATEGY: ${{ toJson(strategy) }}
           CONTEXT_VARS: ${{ toJson(vars) }}
-        run: ${{ github.workspace }}/scripts/dump_context.sh
+        run: ${{ github.workspace }}/scripts/dump_github_context.sh
 
       - name: terragrunt plan
         if: ${{ inputs.terragrunt_action == 'plan' }}

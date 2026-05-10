@@ -24,7 +24,7 @@ on:
           - destroy
         required: true
         type: choice
-      annotate_context_details:
+      dump_github_context:
         default: false
         required: false
         type: boolean
@@ -49,8 +49,8 @@ jobs:
         type: ${{ fromJson(inputs.type == 'all' && '["repo"]' || format('["{0}"]', inputs.type)) }}
     uses: ./.github/workflows/reusable_terragrunt_action.yaml
     with:
-      annotate_context_details: ${{ inputs.annotate_context_details }}
       aws_region: us-east-2
+      dump_github_context: ${{ inputs.dump_github_context }}
       github_environment: github
       terragrunt_action: ${{ inputs.terragrunt_action }}
       terragrunt_parallelism: ${{ inputs.terragrunt_parallelism }}
