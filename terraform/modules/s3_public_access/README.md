@@ -26,7 +26,7 @@ No modules.
 
 | Name | Type |
 | ---- | ---- |
-| [aws_s3_account_public_access_block.example](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_account_public_access_block) | resource |
+| [aws_s3_account_public_access_block.block_public_access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_account_public_access_block) | resource |
 
 ## Inputs
 
