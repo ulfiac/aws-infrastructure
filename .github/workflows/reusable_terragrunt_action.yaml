@@ -136,7 +136,12 @@ jobs:
           role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/${{ secrets.OIDC_ROLE_TO_ASSUME }}
           aws-region: ${{ inputs.aws_region == '_global' && 'us-east-2' || inputs.aws_region }}
 
-      - name: dump github context (script)
+      - name: dump input context (script)
+        env:
+          CONTEXT_INPUTS: ${{ toJson(inputs) }}
+        run: ${{ github.workspace }}/scripts/dump_input_context.sh
+
+      - name: dump all contexts (script)
         if: ${{ inputs.dump_github_context }}
         env:
           CONTEXT_ENV: ${{ toJson(env) }}
@@ -149,7 +154,7 @@ jobs:
           CONTEXT_STEPS: ${{ toJson(steps) }}
           CONTEXT_STRATEGY: ${{ toJson(strategy) }}
           CONTEXT_VARS: ${{ toJson(vars) }}
-        run: ${{ github.workspace }}/scripts/dump_github_context.sh
+        run: ${{ github.workspace }}/scripts/dump_all_contexts.sh
 
       - name: terragrunt plan
         if: ${{ inputs.terragrunt_action == 'plan' }}
