@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo -e "Dumping github context...\n"
+echo -e "Dumping GitHub Action's contexts...\n"
 
 echo "::group::env context (filtered):"
 echo "$CONTEXT_ENV" | grep -v -i "aws" # filter out any AWS creds from the env context
