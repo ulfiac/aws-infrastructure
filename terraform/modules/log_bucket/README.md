@@ -1,6 +1,6 @@
 # log_bucket
 
-## Usage Instructions
+## Usage Details
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
@@ -51,10 +51,6 @@ No modules.
 | log\_bucket\_arn | The ARN of the S3 bucket for logs |
 | log\_bucket\_name | The name of the S3 bucket for logs |
 <!-- END_TF_DOCS -->
-
-## Contributing
-
-## License
 
 ## Updating This README
 

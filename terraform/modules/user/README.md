@@ -10,7 +10,7 @@ Terraform module to create various resources to enable logging into AWS with a r
 - role to assume for admin access
 - role to assume for power user access
 
-## Usage Instructions
+## Usage Details
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
@@ -79,10 +79,6 @@ No modules.
 | encrypted\_password | encrypted password of the regular user |
 | pgp\_public\_key\_content\_sha256\_checksum | SHA256 checksum of the PGP public key content |
 <!-- END_TF_DOCS -->
-
-## Contributing
-
-## License
 
 ## Updating This README
 

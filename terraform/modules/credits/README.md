@@ -13,7 +13,7 @@ This terraform module will create/destroy AWS resources to fulfill each objectiv
 Reference:
 https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/free-tier-plans-activities.html
 
-## Usage Instructions
+## Usage Details
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
@@ -57,10 +57,6 @@ No resources.
 | converse | result received from calling foundation module using converse method |
 | invoke\_model | result received from calling foundation module using invoke\_model method |
 <!-- END_TF_DOCS -->
-
-## Contributing
-
-## License
 
 ## Updating This README
 
