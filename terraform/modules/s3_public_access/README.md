@@ -2,20 +2,20 @@
 
 Terraform module to block public access to s3.
 
-## Usage Instructions
+## Usage Details
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
-| ---- | ------- |
+|------|---------|
 | terraform | >= 1.14.2 |
 | aws | >= 6.26.0 |
 
 ## Providers
 
 | Name | Version |
-| ---- | ------- |
+|------|---------|
 | aws | >= 6.26.0 |
 
 ## Modules
@@ -25,7 +25,7 @@ No modules.
 ## Resources
 
 | Name | Type |
-| ---- | ---- |
+|------|------|
 | [aws_s3_account_public_access_block.block_public_access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_account_public_access_block) | resource |
 
 ## Inputs
@@ -36,10 +36,6 @@ No inputs.
 
 No outputs.
 <!-- END_TF_DOCS -->
-
-## Contributing
-
-## License
 
 ## Updating This README
 

@@ -2,7 +2,7 @@
 
 Terraform module to create a map of key/value pairs that serve as AWS tags.
 
-## Usage Instructions
+## Usage Details
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
@@ -39,10 +39,6 @@ No resources.
 | all\_the\_tags | All the tags merged into a single map |
 | standard\_tags | The standard tags pre-defined by the module |
 <!-- END_TF_DOCS -->
-
-## Contributing
-
-## License
 
 ## Updating This README
 
