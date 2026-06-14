@@ -1,5 +1,5 @@
-name: _terraform-docs-PR
-run-name: "terraform-docs PR: ${{ github.event.pull_request.title }}"
+name: _terraform-docs
+run-name: "terraform-docs: ${{ github.event.pull_request.title }}"
 
 on:
   pull_request:
