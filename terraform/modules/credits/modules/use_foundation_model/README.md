@@ -1,7 +1,5 @@
 # use_foundation_model
 
-## Usage Instructions
-
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 

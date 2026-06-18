@@ -1,7 +1,5 @@
 # create_aws_lambda
 
-## Usage Instructions
-
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 

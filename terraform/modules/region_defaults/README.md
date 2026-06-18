@@ -6,8 +6,6 @@ Terraform module to set various region defaults.  This includes:
 2 - adopting the default subnets
 3 - setting the default ebs encryption
 
-## Usage Details
-
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 

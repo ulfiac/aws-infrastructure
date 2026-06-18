@@ -1,7 +1,5 @@
 # cloudtrail
 
-## Usage Details
-
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 

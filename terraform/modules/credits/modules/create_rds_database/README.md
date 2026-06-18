@@ -1,7 +1,5 @@
 # create_rds_database
 
-## Usage Instructions
-
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
