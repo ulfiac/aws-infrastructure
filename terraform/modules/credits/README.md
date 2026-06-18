@@ -13,8 +13,6 @@ This terraform module will create/destroy AWS resources to fulfill each objectiv
 Reference:
 https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/free-tier-plans-activities.html
 
-## Usage Details
-
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 

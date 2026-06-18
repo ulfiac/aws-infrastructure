@@ -5,8 +5,6 @@ Terraform module to create budget alarms and notifications.
 reference:
 https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-sns-policy.html
 
-## Usage Details
-
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 

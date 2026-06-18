@@ -2,8 +2,6 @@
 
 Terraform module to block public access to s3.
 
-## Usage Details
-
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 

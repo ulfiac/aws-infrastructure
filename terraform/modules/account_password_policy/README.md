@@ -2,8 +2,6 @@
 
 Terraform module to set the account password policy.
 
-## Usage Details
-
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 

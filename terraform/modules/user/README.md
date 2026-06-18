@@ -10,8 +10,6 @@ Terraform module to create various resources to enable logging into AWS with a r
 - role to assume for admin access
 - role to assume for power user access
 
-## Usage Details
-
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 

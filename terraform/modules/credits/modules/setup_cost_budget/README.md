@@ -1,7 +1,5 @@
 # setup_cost_budget
 
-## Usage Instructions
-
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 

@@ -1,7 +1,5 @@
 # launch_ec2_instance
 
-## Usage Instructions
-
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
