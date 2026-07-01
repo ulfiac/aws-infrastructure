@@ -106,7 +106,7 @@ jobs:
       TG_VAR_EMAIL_DOMAIN: ${{ secrets.EMAIL_DOMAIN }}
       TG_VAR_EMAIL_PREFIX: ${{ secrets.EMAIL_PREFIX }}
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2, released 2026-01, checked 2026-03
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v6.0.2, released 2026-01, checked 2026-03
       - run: pwd
 
       - run: shasum --version
