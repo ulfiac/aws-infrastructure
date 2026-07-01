@@ -122,7 +122,7 @@ jobs:
           terraform_wrapper: false
       - run: terraform --version
 
-      - uses: gruntwork-io/terragrunt-action@53dbdc2c3d43e82bf3bae10b734a968196442bec # v3.2.0, released 2026-03, checked 2026-03
+      - uses: gruntwork-io/terragrunt-action@4ed5b7344c80315e5357f28f36159fc980bc2d5a # v3.2.0, released 2026-03, checked 2026-03
         with:
           tf_path: .
           tg_version: "latest"
