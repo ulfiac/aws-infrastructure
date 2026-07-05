@@ -79,12 +79,33 @@ permissions:
   id-token: write
 
 jobs:
+  setup-matrix:
+    name: setup matrix
+    runs-on: ubuntu-latest
+    outputs:
+      regions: ${{ steps.set-regions.outputs.regions }}
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - id: set-regions
+        env:
+          AWS_ACCOUNT_INPUT: ${{ inputs.aws_account }}
+          AWS_REGION_INPUT: ${{ inputs.aws_region }}
+        run: |
+          set -euo pipefail
+          if [ "$AWS_REGION_INPUT" = "all" ]; then
+            regions="$(find "terragrunt/aws/$AWS_ACCOUNT_INPUT" -mindepth 1 -maxdepth 1 -type d -exec basename {} \; | sort | jq -R . | jq -sc .)"
+          else
+            regions="$(jq -cn --arg r "$AWS_REGION_INPUT" '[$r]')"
+          fi
+          echo "regions=$regions" >> "$GITHUB_OUTPUT"
+
   deploy-aws-regions:
     name: ${{ matrix.aws_region }}
+    needs: setup-matrix
     strategy:
       fail-fast: false
       matrix:
-        aws_region: ${{ fromJson(inputs.aws_region == 'all' && '["_global","ca-central-1","us-east-1","us-east-2"]' || format('["{0}"]', inputs.aws_region)) }}
+        aws_region: ${{ fromJson(needs.setup-matrix.outputs.regions) }}
     uses: ./.github/workflows/reusable_terragrunt_action.yaml
     with:
       aws_region: ${{ matrix.aws_region }}
