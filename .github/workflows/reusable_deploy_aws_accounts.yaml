@@ -80,12 +80,32 @@ permissions:
   id-token: write
 
 jobs:
+  setup-matrix:
+    name: setup matrix
+    runs-on: ubuntu-latest
+    outputs:
+      accounts: ${{ steps.set-accounts.outputs.accounts }}
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - id: set-accounts
+        env:
+          AWS_ACCOUNT_INPUT: ${{ inputs.aws_account }}
+        run: |
+          set -euo pipefail
+          if [ "$AWS_ACCOUNT_INPUT" = "all" ]; then
+            accounts="$(find terragrunt/aws -mindepth 1 -maxdepth 1 -type d -printf '%f\n' | sort | jq -R . | jq -sc .)"
+          else
+            accounts="$(jq -cn --arg a "$AWS_ACCOUNT_INPUT" '[$a]')"
+          fi
+          echo "accounts=$accounts" >> "$GITHUB_OUTPUT"
+
   deploy-aws-accounts:
     name: ${{ matrix.aws_account }}
+    needs: setup-matrix
     strategy:
       fail-fast: false
       matrix:
-        aws_account: ${{ fromJson(inputs.aws_account == 'all' && '["green","purple","mgmt"]' || format('["{0}"]', inputs.aws_account)) }}
+        aws_account: ${{ fromJson(needs.setup-matrix.outputs.accounts) }}
     uses: ./.github/workflows/reusable_deploy_aws_regions.yaml
     with:
       aws_account: ${{ matrix.aws_account }}
