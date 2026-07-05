@@ -81,7 +81,7 @@ permissions:
 
 jobs:
   setup-matrix:
-    name: setup matrix
+    name: setup account matrix
     runs-on: ubuntu-latest
     outputs:
       accounts: ${{ steps.set-accounts.outputs.accounts }}
@@ -93,7 +93,7 @@ jobs:
         run: |
           set -euo pipefail
           if [ "$AWS_ACCOUNT_INPUT" = "all" ]; then
-            accounts="$(find terragrunt/aws -mindepth 1 -maxdepth 1 -type d -printf '%f\n' | sort | jq -R . | jq -sc .)"
+            accounts="$(find "terragrunt/aws" -mindepth 1 -maxdepth 1 -type d -printf '%f\n' | sort | jq -R . | jq -sc .)"
           else
             accounts="$(jq -cn --arg a "$AWS_ACCOUNT_INPUT" '[$a]')"
           fi

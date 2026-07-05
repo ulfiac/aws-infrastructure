@@ -80,7 +80,7 @@ permissions:
 
 jobs:
   setup-matrix:
-    name: setup matrix
+    name: "setup region matrix (${{ inputs.aws_account }})"
     runs-on: ubuntu-latest
     outputs:
       regions: ${{ steps.set-regions.outputs.regions }}
