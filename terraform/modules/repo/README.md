@@ -6,13 +6,13 @@
 | Name | Version |
 |------|---------|
 | terraform | 1.15.8 |
-| github | 6.0 |
+| github | 6.13 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| github | 6.0 |
+| github | 6.13 |
 
 ## Modules
 
@@ -22,9 +22,9 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [github_branch_default.default](https://registry.terraform.io/providers/integrations/github/6.0/docs/resources/branch_default) | resource |
-| [github_repository.repo](https://registry.terraform.io/providers/integrations/github/6.0/docs/resources/repository) | resource |
-| [github_repository_ruleset.branch_protection](https://registry.terraform.io/providers/integrations/github/6.0/docs/resources/repository_ruleset) | resource |
+| [github_branch_default.default](https://registry.terraform.io/providers/integrations/github/6.13/docs/resources/branch_default) | resource |
+| [github_repository.repo](https://registry.terraform.io/providers/integrations/github/6.13/docs/resources/repository) | resource |
+| [github_repository_ruleset.branch_protection](https://registry.terraform.io/providers/integrations/github/6.13/docs/resources/repository_ruleset) | resource |
 
 ## Inputs
 
