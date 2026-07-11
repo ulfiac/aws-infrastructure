@@ -17,14 +17,14 @@ Terraform module to create various resources to enable logging into AWS with a r
 |------|---------|
 | terraform | 1.15.8 |
 | aws | 6.54.0 |
-| local | 2.6.1 |
+| local | 2.9.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
 | aws | 6.54.0 |
-| local | 2.6.1 |
+| local | 2.9.0 |
 
 ## Modules
 
@@ -54,7 +54,7 @@ No modules.
 | [aws_iam_policy_document.assume_role_power_user](https://registry.terraform.io/providers/hashicorp/aws/6.54.0/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.enforce_mfa](https://registry.terraform.io/providers/hashicorp/aws/6.54.0/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.roleswitch](https://registry.terraform.io/providers/hashicorp/aws/6.54.0/docs/data-sources/iam_policy_document) | data source |
-| [local_file.pgp_public_key](https://registry.terraform.io/providers/hashicorp/local/2.6.1/docs/data-sources/file) | data source |
+| [local_file.pgp_public_key](https://registry.terraform.io/providers/hashicorp/local/2.9.0/docs/data-sources/file) | data source |
 
 ## Inputs
 
