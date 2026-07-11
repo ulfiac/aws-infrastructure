@@ -6,7 +6,7 @@
 | Name | Version |
 |------|---------|
 | terraform | 1.15.8 |
-| archive | 2.7.1 |
+| archive | 2.8.0 |
 | aws | 6.54.0 |
 | random | 3.7.2 |
 
@@ -14,7 +14,7 @@
 
 | Name | Version |
 |------|---------|
-| archive | 2.7.1 |
+| archive | 2.8.0 |
 | aws | 6.54.0 |
 | random | 3.7.2 |
 
@@ -37,8 +37,8 @@ No modules.
 | [random_integer.converse_second_term](https://registry.terraform.io/providers/hashicorp/random/3.7.2/docs/resources/integer) | resource |
 | [random_integer.invoke_model_first_term](https://registry.terraform.io/providers/hashicorp/random/3.7.2/docs/resources/integer) | resource |
 | [random_integer.invoke_model_second_term](https://registry.terraform.io/providers/hashicorp/random/3.7.2/docs/resources/integer) | resource |
-| [archive_file.lambda_converse_zip](https://registry.terraform.io/providers/hashicorp/archive/2.7.1/docs/data-sources/file) | data source |
-| [archive_file.lambda_invoke_model_zip](https://registry.terraform.io/providers/hashicorp/archive/2.7.1/docs/data-sources/file) | data source |
+| [archive_file.lambda_converse_zip](https://registry.terraform.io/providers/hashicorp/archive/2.8.0/docs/data-sources/file) | data source |
+| [archive_file.lambda_invoke_model_zip](https://registry.terraform.io/providers/hashicorp/archive/2.8.0/docs/data-sources/file) | data source |
 | [aws_bedrock_foundation_model.nova_pro](https://registry.terraform.io/providers/hashicorp/aws/6.54.0/docs/data-sources/bedrock_foundation_model) | data source |
 | [aws_iam_policy.bedrock_full_access](https://registry.terraform.io/providers/hashicorp/aws/6.54.0/docs/data-sources/iam_policy) | data source |
 | [aws_iam_policy.lambda_basic_execution_role](https://registry.terraform.io/providers/hashicorp/aws/6.54.0/docs/data-sources/iam_policy) | data source |
