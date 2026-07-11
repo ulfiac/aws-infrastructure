@@ -19,6 +19,9 @@ https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/free-tier-plans-act
 | Name | Version |
 |------|---------|
 | terraform | >= 1.14.1 |
+| archive | >= 2.7.1 |
+| aws | >= 6.24.0 |
+| random | >= 3.7.2 |
 
 ## Providers
 
