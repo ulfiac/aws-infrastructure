@@ -1,4 +1,4 @@
 terraform {
   required_providers {}
-  required_version = ">= 1.14.1" # current as of 2025-12-03
+  required_version = "1.15.8"
 }
