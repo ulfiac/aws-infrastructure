@@ -1,19 +1,21 @@
 name: _terraform-docs
-run-name: "terraform-docs: ${{ github.event_name == 'pull_request' && github.event.pull_request.title || github.ref_name }}"
+run-name: "terraform-docs: ${{ github.ref_name }}"
 
 on:
-  pull_request:
+  push:
     branches:
       - main
     paths:
       - 'terraform/modules/**'
-    types:
-      - opened
-      - reopened
-      - synchronize
+  workflow_dispatch: {}
 
 permissions:
   contents: write
+  pull-requests: write
+
+concurrency:
+  group: terraform-docs-${{ github.ref_name }}
+  cancel-in-progress: false
 
 jobs:
   terraform-docs:
