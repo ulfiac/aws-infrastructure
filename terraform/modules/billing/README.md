@@ -11,13 +11,13 @@ https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-sns-policy.
 | Name | Version |
 |------|---------|
 | terraform | 1.15.8 |
-| aws | 6.53.0 |
+| aws | 6.54.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | 6.53.0 |
+| aws | 6.54.0 |
 
 ## Modules
 
@@ -27,12 +27,12 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [aws_budgets_budget.monthly_budget](https://registry.terraform.io/providers/hashicorp/aws/6.53.0/docs/resources/budgets_budget) | resource |
-| [aws_sns_topic.monthly_budget](https://registry.terraform.io/providers/hashicorp/aws/6.53.0/docs/resources/sns_topic) | resource |
-| [aws_sns_topic_subscription.monthly_budget](https://registry.terraform.io/providers/hashicorp/aws/6.53.0/docs/resources/sns_topic_subscription) | resource |
-| [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/6.53.0/docs/data-sources/caller_identity) | data source |
-| [aws_iam_policy_document.sns_topic_policy](https://registry.terraform.io/providers/hashicorp/aws/6.53.0/docs/data-sources/iam_policy_document) | data source |
-| [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/6.53.0/docs/data-sources/region) | data source |
+| [aws_budgets_budget.monthly_budget](https://registry.terraform.io/providers/hashicorp/aws/6.54.0/docs/resources/budgets_budget) | resource |
+| [aws_sns_topic.monthly_budget](https://registry.terraform.io/providers/hashicorp/aws/6.54.0/docs/resources/sns_topic) | resource |
+| [aws_sns_topic_subscription.monthly_budget](https://registry.terraform.io/providers/hashicorp/aws/6.54.0/docs/resources/sns_topic_subscription) | resource |
+| [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/6.54.0/docs/data-sources/caller_identity) | data source |
+| [aws_iam_policy_document.sns_topic_policy](https://registry.terraform.io/providers/hashicorp/aws/6.54.0/docs/data-sources/iam_policy_document) | data source |
+| [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/6.54.0/docs/data-sources/region) | data source |
 
 ## Inputs
 
