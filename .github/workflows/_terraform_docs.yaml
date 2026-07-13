@@ -7,6 +7,7 @@ on:
       - main
     paths:
       - 'terraform/modules/**'
+      - '!terraform/modules/**/README.md'
   workflow_dispatch: {}
 
 permissions:
