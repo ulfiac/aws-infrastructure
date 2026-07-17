@@ -16,14 +16,14 @@ Terraform module to create various resources to enable logging into AWS with a r
 | Name | Version |
 |------|---------|
 | terraform | 1.15.8 |
-| aws | 6.54.0 |
+| aws | 6.55.0 |
 | local | 2.9.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | 6.54.0 |
+| aws | 6.55.0 |
 | local | 2.9.0 |
 
 ## Modules
@@ -34,26 +34,26 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [aws_iam_group.default_group](https://registry.terraform.io/providers/hashicorp/aws/6.54.0/docs/resources/iam_group) | resource |
-| [aws_iam_group_policy.enforce_mfa](https://registry.terraform.io/providers/hashicorp/aws/6.54.0/docs/resources/iam_group_policy) | resource |
-| [aws_iam_group_policy.roleswitch](https://registry.terraform.io/providers/hashicorp/aws/6.54.0/docs/resources/iam_group_policy) | resource |
-| [aws_iam_group_policy_attachment.view_only_access](https://registry.terraform.io/providers/hashicorp/aws/6.54.0/docs/resources/iam_group_policy_attachment) | resource |
-| [aws_iam_role.admin](https://registry.terraform.io/providers/hashicorp/aws/6.54.0/docs/resources/iam_role) | resource |
-| [aws_iam_role.power_user](https://registry.terraform.io/providers/hashicorp/aws/6.54.0/docs/resources/iam_role) | resource |
-| [aws_iam_role_policy_attachment.admin](https://registry.terraform.io/providers/hashicorp/aws/6.54.0/docs/resources/iam_role_policy_attachment) | resource |
-| [aws_iam_role_policy_attachment.billing](https://registry.terraform.io/providers/hashicorp/aws/6.54.0/docs/resources/iam_role_policy_attachment) | resource |
-| [aws_iam_role_policy_attachment.power_user](https://registry.terraform.io/providers/hashicorp/aws/6.54.0/docs/resources/iam_role_policy_attachment) | resource |
-| [aws_iam_user.regular_user](https://registry.terraform.io/providers/hashicorp/aws/6.54.0/docs/resources/iam_user) | resource |
-| [aws_iam_user_group_membership.regular_user](https://registry.terraform.io/providers/hashicorp/aws/6.54.0/docs/resources/iam_user_group_membership) | resource |
-| [aws_iam_user_login_profile.regular_user](https://registry.terraform.io/providers/hashicorp/aws/6.54.0/docs/resources/iam_user_login_profile) | resource |
-| [aws_iam_policy.admin_access](https://registry.terraform.io/providers/hashicorp/aws/6.54.0/docs/data-sources/iam_policy) | data source |
-| [aws_iam_policy.billing](https://registry.terraform.io/providers/hashicorp/aws/6.54.0/docs/data-sources/iam_policy) | data source |
-| [aws_iam_policy.power_user_access](https://registry.terraform.io/providers/hashicorp/aws/6.54.0/docs/data-sources/iam_policy) | data source |
-| [aws_iam_policy.view_only_access](https://registry.terraform.io/providers/hashicorp/aws/6.54.0/docs/data-sources/iam_policy) | data source |
-| [aws_iam_policy_document.assume_role_admin](https://registry.terraform.io/providers/hashicorp/aws/6.54.0/docs/data-sources/iam_policy_document) | data source |
-| [aws_iam_policy_document.assume_role_power_user](https://registry.terraform.io/providers/hashicorp/aws/6.54.0/docs/data-sources/iam_policy_document) | data source |
-| [aws_iam_policy_document.enforce_mfa](https://registry.terraform.io/providers/hashicorp/aws/6.54.0/docs/data-sources/iam_policy_document) | data source |
-| [aws_iam_policy_document.roleswitch](https://registry.terraform.io/providers/hashicorp/aws/6.54.0/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_group.default_group](https://registry.terraform.io/providers/hashicorp/aws/6.55.0/docs/resources/iam_group) | resource |
+| [aws_iam_group_policy.enforce_mfa](https://registry.terraform.io/providers/hashicorp/aws/6.55.0/docs/resources/iam_group_policy) | resource |
+| [aws_iam_group_policy.roleswitch](https://registry.terraform.io/providers/hashicorp/aws/6.55.0/docs/resources/iam_group_policy) | resource |
+| [aws_iam_group_policy_attachment.view_only_access](https://registry.terraform.io/providers/hashicorp/aws/6.55.0/docs/resources/iam_group_policy_attachment) | resource |
+| [aws_iam_role.admin](https://registry.terraform.io/providers/hashicorp/aws/6.55.0/docs/resources/iam_role) | resource |
+| [aws_iam_role.power_user](https://registry.terraform.io/providers/hashicorp/aws/6.55.0/docs/resources/iam_role) | resource |
+| [aws_iam_role_policy_attachment.admin](https://registry.terraform.io/providers/hashicorp/aws/6.55.0/docs/resources/iam_role_policy_attachment) | resource |
+| [aws_iam_role_policy_attachment.billing](https://registry.terraform.io/providers/hashicorp/aws/6.55.0/docs/resources/iam_role_policy_attachment) | resource |
+| [aws_iam_role_policy_attachment.power_user](https://registry.terraform.io/providers/hashicorp/aws/6.55.0/docs/resources/iam_role_policy_attachment) | resource |
+| [aws_iam_user.regular_user](https://registry.terraform.io/providers/hashicorp/aws/6.55.0/docs/resources/iam_user) | resource |
+| [aws_iam_user_group_membership.regular_user](https://registry.terraform.io/providers/hashicorp/aws/6.55.0/docs/resources/iam_user_group_membership) | resource |
+| [aws_iam_user_login_profile.regular_user](https://registry.terraform.io/providers/hashicorp/aws/6.55.0/docs/resources/iam_user_login_profile) | resource |
+| [aws_iam_policy.admin_access](https://registry.terraform.io/providers/hashicorp/aws/6.55.0/docs/data-sources/iam_policy) | data source |
+| [aws_iam_policy.billing](https://registry.terraform.io/providers/hashicorp/aws/6.55.0/docs/data-sources/iam_policy) | data source |
+| [aws_iam_policy.power_user_access](https://registry.terraform.io/providers/hashicorp/aws/6.55.0/docs/data-sources/iam_policy) | data source |
+| [aws_iam_policy.view_only_access](https://registry.terraform.io/providers/hashicorp/aws/6.55.0/docs/data-sources/iam_policy) | data source |
+| [aws_iam_policy_document.assume_role_admin](https://registry.terraform.io/providers/hashicorp/aws/6.55.0/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.assume_role_power_user](https://registry.terraform.io/providers/hashicorp/aws/6.55.0/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.enforce_mfa](https://registry.terraform.io/providers/hashicorp/aws/6.55.0/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.roleswitch](https://registry.terraform.io/providers/hashicorp/aws/6.55.0/docs/data-sources/iam_policy_document) | data source |
 | [local_file.pgp_public_key](https://registry.terraform.io/providers/hashicorp/local/2.9.0/docs/data-sources/file) | data source |
 
 ## Inputs
