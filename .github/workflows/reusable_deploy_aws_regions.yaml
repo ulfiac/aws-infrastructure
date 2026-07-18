@@ -33,8 +33,6 @@ on:
       aws_account:
         default: mgmt
         options:
-          - green
-          - purple
           - mgmt
         required: true
         type: choice

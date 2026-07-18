@@ -45,8 +45,6 @@ on:
       github_environment:
         default: aws_mgmt
         options:
-          - aws_green
-          - aws_purple
           - aws_mgmt
         required: true
         type: choice
