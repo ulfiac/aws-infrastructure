@@ -60,7 +60,7 @@ permissions:
 jobs:
   set-plan-action:
     name: set plan action
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     outputs:
       plan_action: ${{ steps.set-plan-action.outputs.plan_action }}
     steps:
@@ -95,7 +95,7 @@ jobs:
 
   get-approval:
     name: get approval
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     if: ${{ inputs.terragrunt_action == 'apply' || inputs.terragrunt_action == 'destroy' }}
     environment: ${{ inputs.skip_approval == true && 'approval_skipped' || 'approval_required' }}
     needs: plan

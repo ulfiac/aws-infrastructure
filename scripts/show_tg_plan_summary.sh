@@ -42,7 +42,7 @@ get_unit_name() {
   awk -F'[][]' '{print "[" $2 "]"}'
 }
 
-# even though sort --ignore-nonprinting is a thing, it does not work as documented on github's ubuntu-latest runner (as of 2026-01)
+# even though sort --ignore-nonprinting is a thing, it does not work as documented on github's ubuntu-24.04 runner (as of 2026-01)
 # so here's a function using awk, sort, and cut that ignores color codes for sorting but maintains them in the output
 # awk command breakdown:
 #   x=$0                         : save original line with colors

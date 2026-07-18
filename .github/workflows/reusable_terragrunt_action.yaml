@@ -88,7 +88,7 @@ permissions:
 jobs:
   reusable-terragrunt-action:
     name: "${{ inputs.terragrunt_action }}  ${{ inputs.working_dir }}"
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     defaults:
       run:
         working-directory: ./terragrunt/${{ inputs.working_dir }}
