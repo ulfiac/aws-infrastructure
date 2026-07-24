@@ -12,13 +12,13 @@ Terraform module to set various region defaults.  This includes:
 | Name | Version |
 |------|---------|
 | terraform | 1.15.8 |
-| aws | 6.55.0 |
+| aws | 6.56.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | 6.55.0 |
+| aws | 6.56.0 |
 
 ## Modules
 
@@ -28,21 +28,21 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [aws_athena_database.logs](https://registry.terraform.io/providers/hashicorp/aws/6.55.0/docs/resources/athena_database) | resource |
-| [aws_athena_workgroup.logs](https://registry.terraform.io/providers/hashicorp/aws/6.55.0/docs/resources/athena_workgroup) | resource |
-| [aws_default_subnet.adopted](https://registry.terraform.io/providers/hashicorp/aws/6.55.0/docs/resources/default_subnet) | resource |
-| [aws_default_vpc.adopted](https://registry.terraform.io/providers/hashicorp/aws/6.55.0/docs/resources/default_vpc) | resource |
-| [aws_ebs_default_kms_key.default](https://registry.terraform.io/providers/hashicorp/aws/6.55.0/docs/resources/ebs_default_kms_key) | resource |
-| [aws_ebs_encryption_by_default.default](https://registry.terraform.io/providers/hashicorp/aws/6.55.0/docs/resources/ebs_encryption_by_default) | resource |
-| [aws_flow_log.default_vpc](https://registry.terraform.io/providers/hashicorp/aws/6.55.0/docs/resources/flow_log) | resource |
-| [aws_glue_catalog_table.vpc_flow_logs](https://registry.terraform.io/providers/hashicorp/aws/6.55.0/docs/resources/glue_catalog_table) | resource |
-| [aws_availability_zones.available](https://registry.terraform.io/providers/hashicorp/aws/6.55.0/docs/data-sources/availability_zones) | data source |
-| [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/6.55.0/docs/data-sources/caller_identity) | data source |
-| [aws_kms_key.ebs](https://registry.terraform.io/providers/hashicorp/aws/6.55.0/docs/data-sources/kms_key) | data source |
-| [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/6.55.0/docs/data-sources/region) | data source |
-| [aws_subnet.default](https://registry.terraform.io/providers/hashicorp/aws/6.55.0/docs/data-sources/subnet) | data source |
-| [aws_subnets.default](https://registry.terraform.io/providers/hashicorp/aws/6.55.0/docs/data-sources/subnets) | data source |
-| [aws_vpc.default](https://registry.terraform.io/providers/hashicorp/aws/6.55.0/docs/data-sources/vpc) | data source |
+| [aws_athena_database.logs](https://registry.terraform.io/providers/hashicorp/aws/6.56.0/docs/resources/athena_database) | resource |
+| [aws_athena_workgroup.logs](https://registry.terraform.io/providers/hashicorp/aws/6.56.0/docs/resources/athena_workgroup) | resource |
+| [aws_default_subnet.adopted](https://registry.terraform.io/providers/hashicorp/aws/6.56.0/docs/resources/default_subnet) | resource |
+| [aws_default_vpc.adopted](https://registry.terraform.io/providers/hashicorp/aws/6.56.0/docs/resources/default_vpc) | resource |
+| [aws_ebs_default_kms_key.default](https://registry.terraform.io/providers/hashicorp/aws/6.56.0/docs/resources/ebs_default_kms_key) | resource |
+| [aws_ebs_encryption_by_default.default](https://registry.terraform.io/providers/hashicorp/aws/6.56.0/docs/resources/ebs_encryption_by_default) | resource |
+| [aws_flow_log.default_vpc](https://registry.terraform.io/providers/hashicorp/aws/6.56.0/docs/resources/flow_log) | resource |
+| [aws_glue_catalog_table.vpc_flow_logs](https://registry.terraform.io/providers/hashicorp/aws/6.56.0/docs/resources/glue_catalog_table) | resource |
+| [aws_availability_zones.available](https://registry.terraform.io/providers/hashicorp/aws/6.56.0/docs/data-sources/availability_zones) | data source |
+| [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/6.56.0/docs/data-sources/caller_identity) | data source |
+| [aws_kms_key.ebs](https://registry.terraform.io/providers/hashicorp/aws/6.56.0/docs/data-sources/kms_key) | data source |
+| [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/6.56.0/docs/data-sources/region) | data source |
+| [aws_subnet.default](https://registry.terraform.io/providers/hashicorp/aws/6.56.0/docs/data-sources/subnet) | data source |
+| [aws_subnets.default](https://registry.terraform.io/providers/hashicorp/aws/6.56.0/docs/data-sources/subnets) | data source |
+| [aws_vpc.default](https://registry.terraform.io/providers/hashicorp/aws/6.56.0/docs/data-sources/vpc) | data source |
 
 ## Inputs
 
