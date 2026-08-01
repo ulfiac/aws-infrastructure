@@ -12,7 +12,7 @@
   ],
   "packageRules": [
     {
-      "groupName": "Monday updates",
+      "groupName": "Monday packages",
       "matchPackageNames": [
         "actions/checkout",
         "hashicorp/archive",
@@ -24,6 +24,10 @@
         "hashicorp/terraform",
         "hashicorp/local",
         "hashicorp/random"
+      ],
+      "minimumReleaseAge": "7 days",
+      "schedule": [
+        "before 9am on monday"
       ]
     }
   ],
