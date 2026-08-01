@@ -4,13 +4,33 @@
     "ulfiac"
   ],
   "extends": [
-    "config:recommended"
+    "config:recommended",
+    "mergeConfidence:all-badges"
   ],
   "labels": [
     "renovate"
   ],
+  "packageRules": [
+    {
+      "groupName": "Monday updates",
+      "matchPackageNames": [
+        "actions/checkout",
+        "hashicorp/archive",
+        "hashicorp/aws",
+        "aws-actions/configure-aws-credentials",
+        "hashicorp/github",
+        "gruntwork-io/terragrunt-action",
+        "hashicorp/setup-terraform",
+        "hashicorp/terraform",
+        "hashicorp/local",
+        "hashicorp/random",
+        "ubuntu"
+      ]
+    }
+  ],
   "prHourlyLimit": 5,
   "reviewers": [
     "ulfiac"
-  ]
+  ],
+  "timezone": "America/New_York"
 }
