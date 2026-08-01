@@ -23,8 +23,7 @@
         "hashicorp/setup-terraform",
         "hashicorp/terraform",
         "hashicorp/local",
-        "hashicorp/random",
-        "ubuntu"
+        "hashicorp/random"
       ]
     }
   ],
