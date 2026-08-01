@@ -18,7 +18,7 @@
         "hashicorp/archive",
         "hashicorp/aws",
         "aws-actions/configure-aws-credentials",
-        "hashicorp/github",
+        "integrations/github",
         "gruntwork-io/terragrunt-action",
         "hashicorp/setup-terraform",
         "hashicorp/terraform",
