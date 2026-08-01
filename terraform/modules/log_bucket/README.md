@@ -5,14 +5,14 @@
 
 | Name | Version |
 |------|---------|
-| terraform | 1.15.7 |
-| aws | 6.55.0 |
+| terraform | 1.15.8 |
+| aws | 6.57.1 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | 6.55.0 |
+| aws | 6.57.1 |
 
 ## Modules
 
@@ -22,18 +22,18 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [aws_s3_bucket.logs](https://registry.terraform.io/providers/hashicorp/aws/6.55.0/docs/resources/s3_bucket) | resource |
-| [aws_s3_bucket_lifecycle_configuration.logs](https://registry.terraform.io/providers/hashicorp/aws/6.55.0/docs/resources/s3_bucket_lifecycle_configuration) | resource |
-| [aws_s3_bucket_ownership_controls.logs](https://registry.terraform.io/providers/hashicorp/aws/6.55.0/docs/resources/s3_bucket_ownership_controls) | resource |
-| [aws_s3_bucket_policy.logs](https://registry.terraform.io/providers/hashicorp/aws/6.55.0/docs/resources/s3_bucket_policy) | resource |
-| [aws_s3_bucket_public_access_block.logs](https://registry.terraform.io/providers/hashicorp/aws/6.55.0/docs/resources/s3_bucket_public_access_block) | resource |
-| [aws_s3_bucket_server_side_encryption_configuration.logs](https://registry.terraform.io/providers/hashicorp/aws/6.55.0/docs/resources/s3_bucket_server_side_encryption_configuration) | resource |
-| [aws_s3_bucket_versioning.logs](https://registry.terraform.io/providers/hashicorp/aws/6.55.0/docs/resources/s3_bucket_versioning) | resource |
-| [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/6.55.0/docs/data-sources/caller_identity) | data source |
-| [aws_iam_policy_document.cloudtrail_logs](https://registry.terraform.io/providers/hashicorp/aws/6.55.0/docs/data-sources/iam_policy_document) | data source |
-| [aws_iam_policy_document.logs](https://registry.terraform.io/providers/hashicorp/aws/6.55.0/docs/data-sources/iam_policy_document) | data source |
-| [aws_iam_policy_document.vpc_flow_logs](https://registry.terraform.io/providers/hashicorp/aws/6.55.0/docs/data-sources/iam_policy_document) | data source |
-| [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/6.55.0/docs/data-sources/region) | data source |
+| [aws_s3_bucket.logs](https://registry.terraform.io/providers/hashicorp/aws/6.57.1/docs/resources/s3_bucket) | resource |
+| [aws_s3_bucket_lifecycle_configuration.logs](https://registry.terraform.io/providers/hashicorp/aws/6.57.1/docs/resources/s3_bucket_lifecycle_configuration) | resource |
+| [aws_s3_bucket_ownership_controls.logs](https://registry.terraform.io/providers/hashicorp/aws/6.57.1/docs/resources/s3_bucket_ownership_controls) | resource |
+| [aws_s3_bucket_policy.logs](https://registry.terraform.io/providers/hashicorp/aws/6.57.1/docs/resources/s3_bucket_policy) | resource |
+| [aws_s3_bucket_public_access_block.logs](https://registry.terraform.io/providers/hashicorp/aws/6.57.1/docs/resources/s3_bucket_public_access_block) | resource |
+| [aws_s3_bucket_server_side_encryption_configuration.logs](https://registry.terraform.io/providers/hashicorp/aws/6.57.1/docs/resources/s3_bucket_server_side_encryption_configuration) | resource |
+| [aws_s3_bucket_versioning.logs](https://registry.terraform.io/providers/hashicorp/aws/6.57.1/docs/resources/s3_bucket_versioning) | resource |
+| [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/6.57.1/docs/data-sources/caller_identity) | data source |
+| [aws_iam_policy_document.cloudtrail_logs](https://registry.terraform.io/providers/hashicorp/aws/6.57.1/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.logs](https://registry.terraform.io/providers/hashicorp/aws/6.57.1/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.vpc_flow_logs](https://registry.terraform.io/providers/hashicorp/aws/6.57.1/docs/data-sources/iam_policy_document) | data source |
+| [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/6.57.1/docs/data-sources/region) | data source |
 
 ## Inputs
 
