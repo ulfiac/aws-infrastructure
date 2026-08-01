@@ -28,7 +28,7 @@
       ]
     }
   ],
-  "prHourlyLimit": 5,
+  "prHourlyLimit": 10,
   "reviewers": [
     "ulfiac"
   ],
