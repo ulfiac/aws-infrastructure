@@ -1,0 +1,144 @@
+name: reusable github terragrunt action
+run-name: "${{ inputs.terragrunt_action }}: ${{ inputs.working_dir }}"
+
+on:
+  workflow_call:
+    inputs:
+      terragrunt_action:
+        required: true
+        type: string
+      terragrunt_parallelism:
+        default: true
+        required: false
+        type: boolean
+      terragrunt_queue_include_dir:
+        default: "./**"
+        required: false
+        type: string
+      terragrunt_strict_mode:
+        default: true
+        required: false
+        type: boolean
+      working_dir:
+        default: './github/repo'
+        required: false
+        type: string
+  workflow_dispatch:
+    inputs:
+      terragrunt_action:
+        default: plan
+        options:
+          - plan
+          - plan destroy
+          - apply
+          - destroy
+        required: false
+        type: choice
+      terragrunt_parallelism:
+        default: true
+        required: false
+        type: boolean
+      terragrunt_queue_include_dir:
+        default: "./**"
+        required: false
+        type: string
+      terragrunt_strict_mode:
+        default: true
+        required: false
+        type: boolean
+      working_dir:
+        default: './github/repo'
+        required: false
+        type: string
+
+env:
+  TF_LOG: OFF
+  TF_LOG_CORE: OFF
+  TF_LOG_PROVIDER: OFF
+  TF_LOG_PATH: ./terraform.log
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  reusable-terragrunt-action:
+    name: "${{ inputs.terragrunt_action }}  ${{ inputs.working_dir }}"
+    runs-on: ubuntu-24.04
+    environment: github
+    defaults:
+      run:
+        working-directory: ./terragrunt/${{ inputs.working_dir }}
+    env:
+      TG_ALL: "true"
+      TG_NON_INTERACTIVE: "true"
+      TG_PARALLELISM: ${{ inputs.terragrunt_parallelism == true && 10 || 1 }}
+      TG_QUEUE_INCLUDE_DIR: ${{ inputs.terragrunt_queue_include_dir }}
+      TG_STRICT_MODE: ${{ inputs.terragrunt_strict_mode }}
+      TG_SUMMARY_PER_UNIT: "true"
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - run: pwd
+
+      - name: get github app token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        id: app-token
+        with:
+          client-id: ${{ secrets.REPO_BOT_CLIENT_ID }}
+          private-key: ${{ secrets.REPO_BOT_PRIVATE_KEY }}
+
+      - uses: hashicorp/setup-terraform@dfe3c3f87815947d99a8997f908cb6525fc44e9e # v4.0.1
+        with:
+          terraform_wrapper: false
+      - run: terraform --version
+
+      - uses: gruntwork-io/terragrunt-action@8c1d96b76d445fd2e41475a3f0b63dcd1d9cc077 # v3.4.1
+        with:
+          tf_path: .
+          tg_version: "latest"
+      - run: terragrunt --version
+
+      - name: dump input context (script)
+        env:
+          CONTEXT_INPUTS: ${{ toJson(inputs) }}
+        run: ${{ github.workspace }}/scripts/dump_input_context.sh
+
+      - name: terragrunt plan
+        if: ${{ inputs.terragrunt_action == 'plan' }}
+        env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          terragrunt plan -out=tfplan.binary
+
+      - name: terragrunt plan destroy
+        if: ${{ inputs.terragrunt_action == 'plan destroy' }}
+        env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          terragrunt plan -destroy -out=tfplan.binary
+
+      - name: show plan summary
+        if: ${{ inputs.terragrunt_action == 'plan' || inputs.terragrunt_action == 'plan destroy' }}
+        run: |
+          ${{ github.workspace }}/scripts/show_tg_plan_summary.sh "${{ inputs.terragrunt_action }}"
+
+      - name: terragrunt apply
+        if: ${{ inputs.terragrunt_action == 'apply' }}
+        env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          set -o pipefail
+          terragrunt apply -auto-approve 2>&1 | tee tfapply.out
+
+      - name: terragrunt destroy
+        if: ${{ inputs.terragrunt_action == 'destroy' }}
+        env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          set -o pipefail
+          terragrunt apply -destroy -auto-approve 2>&1 | tee tfdestroy.out
+
+      - name: show apply summary
+        if: ${{ inputs.terragrunt_action == 'apply' || inputs.terragrunt_action == 'destroy' }}
+        run: |
+          ${{ github.workspace }}/scripts/show_tg_apply_summary.sh "${{ inputs.terragrunt_action }}"
