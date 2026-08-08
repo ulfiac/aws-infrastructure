@@ -1,20 +1,16 @@
 name: deploy github
-run-name: "${{ inputs.terragrunt_action }}: github, ${{ inputs.type }}, ${{ inputs.name }}"
+run-name: "${{ inputs.terragrunt_action }}: github, ${{ inputs.github_repo }}"
 
 on:
   workflow_dispatch:
     inputs:
-      type:
+      github_repo:
         default: all
         options:
           - all
-          - repo
+          - test-repo
         required: true
         type: choice
-      name:
-        default: all
-        required: true
-        type: string
       terragrunt_action:
         default: plan
         options:
@@ -24,7 +20,7 @@ on:
           - destroy
         required: true
         type: choice
-      dump_github_context:
+      skip_approval:
         default: false
         required: false
         type: boolean
@@ -42,19 +38,52 @@ permissions:
   id-token: write
 
 jobs:
-  deploy-github:
-    name: ${{ inputs.name == 'all' && format('github/{0}', matrix.type) || format('github/{0}/{1}', matrix.type, inputs.name) }}
-    strategy:
-      matrix:
-        type: ${{ fromJson(inputs.type == 'all' && '["repo"]' || format('["{0}"]', inputs.type)) }}
-    uses: ./.github/workflows/reusable_terragrunt_action.yaml
+  set-plan-action:
+    name: set plan action
+    runs-on: ubuntu-24.04
+    outputs:
+      plan_action: ${{ steps.set-plan-action.outputs.plan_action }}
+    steps:
+      - name: set plan action
+        id: set-plan-action
+        run: |
+          case "${{ inputs.terragrunt_action }}" in
+            "plan")         echo "plan_action=plan"         >> "$GITHUB_OUTPUT";;
+            "apply")        echo "plan_action=plan"         >> "$GITHUB_OUTPUT";;
+            "plan destroy") echo "plan_action=plan destroy" >> "$GITHUB_OUTPUT";;
+            "destroy")      echo "plan_action=plan destroy" >> "$GITHUB_OUTPUT";;
+            *)              echo "Unexpected terragrunt_action: ${{ inputs.terragrunt_action }}"; exit 1;;
+          esac
+
+  plan:
+    uses: ./.github/workflows/reusable_deploy_github_terragrunt_action.yaml
+    needs: set-plan-action
     with:
-      aws_region: us-east-2
-      dump_github_context: ${{ inputs.dump_github_context }}
-      github_environment: github
+      terragrunt_action: ${{ needs.set-plan-action.outputs.plan_action }}
+      terragrunt_parallelism: ${{ inputs.terragrunt_parallelism }}
+      terragrunt_queue_include_dir: ${{ inputs.github_repo == 'all' && './**' || format('./{0}', inputs.github_repo) }}
+      terragrunt_strict_mode: ${{ inputs.terragrunt_strict_mode }}
+      working_dir: './github/repo'
+    secrets: inherit
+
+  get-approval:
+    name: get approval
+    runs-on: ubuntu-24.04
+    if: ${{ inputs.terragrunt_action == 'apply' || inputs.terragrunt_action == 'destroy' }}
+    environment: ${{ inputs.skip_approval == true && 'approval_skipped' || 'approval_required' }}
+    needs: plan
+    steps:
+      - name: approval requested
+        run: echo 'Approval provided. Job will continue.'
+
+  apply:
+    uses: ./.github/workflows/reusable_deploy_github_terragrunt_action.yaml
+    if: ${{ inputs.terragrunt_action == 'apply' || inputs.terragrunt_action == 'destroy' }}
+    needs: get-approval
+    with:
       terragrunt_action: ${{ inputs.terragrunt_action }}
       terragrunt_parallelism: ${{ inputs.terragrunt_parallelism }}
-      terragrunt_queue_include_dir: ${{ inputs.name == 'all' && './**' || format('./{0}', inputs.name) }}
+      terragrunt_queue_include_dir: ${{ inputs.github_repo == 'all' && './**' || format('./{0}', inputs.github_repo) }}
       terragrunt_strict_mode: ${{ inputs.terragrunt_strict_mode }}
-      working_dir: "./github/${{ matrix.type }}"
+      working_dir: './github/repo'
     secrets: inherit
