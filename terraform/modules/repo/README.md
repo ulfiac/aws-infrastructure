@@ -25,6 +25,7 @@ No modules.
 | [github_branch_default.default](https://registry.terraform.io/providers/integrations/github/6.13.0/docs/resources/branch_default) | resource |
 | [github_repository.repo](https://registry.terraform.io/providers/integrations/github/6.13.0/docs/resources/repository) | resource |
 | [github_repository_ruleset.branch_protection](https://registry.terraform.io/providers/integrations/github/6.13.0/docs/resources/repository_ruleset) | resource |
+| [github_repository_vulnerability_alerts.vulnerability_alerts](https://registry.terraform.io/providers/integrations/github/6.13.0/docs/resources/repository_vulnerability_alerts) | resource |
 
 ## Inputs
 
