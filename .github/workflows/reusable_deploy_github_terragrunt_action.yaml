@@ -59,7 +59,6 @@ env:
 
 permissions:
   contents: read
-  id-token: write
 
 jobs:
   reusable-terragrunt-action:
