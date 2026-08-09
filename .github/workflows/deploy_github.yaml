@@ -20,6 +20,10 @@ on:
           - destroy
         required: true
         type: choice
+      dump_github_context:
+        default: false
+        required: false
+        type: boolean
       skip_approval:
         default: false
         required: false
@@ -35,6 +39,7 @@ on:
 
 permissions:
   contents: read
+  id-token: write
 
 jobs:
   set-plan-action:
@@ -55,9 +60,12 @@ jobs:
           esac
 
   plan:
-    uses: ./.github/workflows/reusable_deploy_github_terragrunt_action.yaml
+    uses: ./.github/workflows/reusable_terragrunt_action.yaml
     needs: set-plan-action
     with:
+      aws_region: us-east-2
+      dump_github_context: ${{ inputs.dump_github_context }}
+      github_environment: github
       terragrunt_action: ${{ needs.set-plan-action.outputs.plan_action }}
       terragrunt_parallelism: ${{ inputs.terragrunt_parallelism }}
       terragrunt_queue_include_dir: ${{ inputs.github_repo == 'all' && './**' || format('./{0}', inputs.github_repo) }}
@@ -76,10 +84,13 @@ jobs:
         run: echo 'Approval provided. Job will continue.'
 
   apply:
-    uses: ./.github/workflows/reusable_deploy_github_terragrunt_action.yaml
+    uses: ./.github/workflows/reusable_terragrunt_action.yaml
     if: ${{ inputs.terragrunt_action == 'apply' || inputs.terragrunt_action == 'destroy' }}
     needs: get-approval
     with:
+      aws_region: us-east-2
+      dump_github_context: ${{ inputs.dump_github_context }}
+      github_environment: github
       terragrunt_action: ${{ inputs.terragrunt_action }}
       terragrunt_parallelism: ${{ inputs.terragrunt_parallelism }}
       terragrunt_queue_include_dir: ${{ inputs.github_repo == 'all' && './**' || format('./{0}', inputs.github_repo) }}

@@ -1,3 +1,4 @@
+# trivy:ignore:AVD-GIT-0003 (HIGH): Repository does not have vulnerability alerts enabled
 resource "github_repository" "repo" {
   name        = var.name
   description = var.description
@@ -16,7 +17,6 @@ resource "github_repository" "repo" {
   delete_branch_on_merge = true
 
   has_discussions = false
-  has_downloads   = false
   has_issues      = true
   has_projects    = false
   has_wiki        = false
@@ -26,8 +26,6 @@ resource "github_repository" "repo" {
 
   # trivy:ignore:AVD-GIT-0001
   visibility = var.visibility
-
-  vulnerability_alerts = true
 }
 
 resource "github_branch_default" "default" {
@@ -66,4 +64,9 @@ resource "github_repository_ruleset" "branch_protection" {
       required_review_thread_resolution = false
     }
   }
+}
+
+resource "github_repository_vulnerability_alerts" "vulnerability_alerts" {
+  repository = github_repository.repo.name
+  enabled    = true
 }

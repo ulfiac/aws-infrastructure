@@ -92,7 +92,6 @@ jobs:
         working-directory: ./terragrunt/${{ inputs.working_dir }}
     environment: ${{ inputs.github_environment }}
     env:
-      GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
       TG_ALL: "true"
       TG_NON_INTERACTIVE: "true"
       TG_PARALLELISM: ${{ inputs.terragrunt_parallelism == true && 10 || 1 }}
@@ -127,6 +126,10 @@ jobs:
       - run: terragrunt --version
 
       - run: aws --version
+
+      - name: set github token
+        if: ${{ inputs.github_environment == 'github' }}
+        run: echo "GITHUB_TOKEN=${{ secrets.TOKEN_GITHUB }}" >> "$GITHUB_ENV"
 
       - name: configure aws credentials with oidc
         uses: aws-actions/configure-aws-credentials@e6de054238d6b7531b4efff3b6587d9aade6a06c # v6.2.3
