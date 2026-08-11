@@ -8,7 +8,8 @@ on:
         default: all
         options:
           - all
-          - test-repo
+          - test-repo-burrito
+          - test-repo-guacamole
         required: true
         type: choice
       terragrunt_action:

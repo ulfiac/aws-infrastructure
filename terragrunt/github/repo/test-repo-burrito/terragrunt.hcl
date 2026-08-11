@@ -8,6 +8,6 @@ include "component" {
 }
 
 inputs = {
-  name        = "test-repo"
+  name        = "test-repo-burrito"
   description = "This is a test repository"
 }
