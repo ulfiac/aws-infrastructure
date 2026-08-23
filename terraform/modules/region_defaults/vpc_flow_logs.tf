@@ -7,8 +7,8 @@ resource "aws_flow_log" "default_vpc" {
 
   destination_options {
     file_format                = "parquet"
-    hive_compatible_partitions = false
-    per_hour_partition         = false
+    hive_compatible_partitions = true
+    per_hour_partition         = true
   }
 
   tags = {

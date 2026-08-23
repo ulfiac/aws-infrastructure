@@ -6,19 +6,42 @@ resource "aws_glue_catalog_table" "vpc_flow_logs" {
   table_type = "EXTERNAL_TABLE"
 
   parameters = {
-    "EXTERNAL"                     = "TRUE"
-    "classification"               = "parquet"
-    "projection.enabled"           = "true"
-    "projection.day.format"        = "yyyy/MM/dd"
-    "projection.day.interval"      = "1"
-    "projection.day.interval.unit" = "DAYS"
-    "projection.day.range"         = "2025/01/01,NOW"
-    "projection.day.type"          = "date"
-    "storage.location.template"    = "s3://${var.log_bucket_name}/vpcflow/AWSLogs/${local.aws_account_id}/vpcflowlogs/${local.aws_region}/$${day}"
+    "EXTERNAL"           = "TRUE"
+    "classification"     = "parquet"
+    "projection.enabled" = "true"
+
+    "projection.year.type"  = "integer"
+    "projection.year.range" = "2025,2100"
+
+    "projection.month.type"   = "integer"
+    "projection.month.range"  = "1,12"
+    "projection.month.digits" = "2"
+
+    "projection.day.type"   = "integer"
+    "projection.day.range"  = "1,31"
+    "projection.day.digits" = "2"
+
+    "projection.hour.type"   = "integer"
+    "projection.hour.range"  = "0,23"
+    "projection.hour.digits" = "2"
+
+    "storage.location.template" = "s3://${var.log_bucket_name}/vpcflow/AWSLogs/aws-account-id=${local.aws_account_id}/vpcflowlogs/aws-region=${local.aws_region}/year=$${year}/month=$${month}/day=$${day}/hour=$${hour}"
   }
 
   partition_keys {
+    name = "year"
+    type = "string"
+  }
+  partition_keys {
+    name = "month"
+    type = "string"
+  }
+  partition_keys {
     name = "day"
+    type = "string"
+  }
+  partition_keys {
+    name = "hour"
     type = "string"
   }
 
@@ -26,7 +49,7 @@ resource "aws_glue_catalog_table" "vpc_flow_logs" {
     bucket_columns            = []
     compressed                = false
     input_format              = "org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat"
-    location                  = "s3://${var.log_bucket_name}/vpcflow/AWSLogs/${local.aws_account_id}/vpcflowlogs/${local.aws_region}/"
+    location                  = "s3://${var.log_bucket_name}/vpcflow/AWSLogs/aws-account-id=${local.aws_account_id}/vpcflowlogs/aws-region=${local.aws_region}/"
     number_of_buckets         = -1
     output_format             = "org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat"
     stored_as_sub_directories = false
