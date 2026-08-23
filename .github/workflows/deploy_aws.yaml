@@ -79,6 +79,7 @@ jobs:
           esac
 
   plan:
+    name: ${{ needs.set-plan-action.outputs.plan_action }}
     uses: ./.github/workflows/reusable_deploy_aws_accounts.yaml
     needs: set-plan-action
     with:
@@ -102,6 +103,7 @@ jobs:
         run: echo 'Approval provided. Job will continue.'
 
   apply:
+    name: ${{ inputs.terragrunt_action }}
     uses: ./.github/workflows/reusable_deploy_aws_accounts.yaml
     if: ${{ inputs.terragrunt_action == 'apply' || inputs.terragrunt_action == 'destroy' }}
     needs: get-approval
