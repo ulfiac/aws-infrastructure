@@ -87,8 +87,11 @@ jobs:
   reusable-terragrunt-action:
     name: "${{ inputs.terragrunt_action }}  ${{ inputs.working_dir }}"
     runs-on: ubuntu-24.04
+    container:
+      image: ghcr.io/ulfiac/terragrunt-runner:1.1.2@sha256:af4feb7700e529124c702b7298e91b26cfc8bab29a3f13becd24534cf880e271
     defaults:
       run:
+        shell: bash
         working-directory: ./terragrunt/${{ inputs.working_dir }}
     environment: ${{ inputs.github_environment }}
     env:
@@ -108,24 +111,13 @@ jobs:
 
       - run: shasum --version
       - run: gpg --version
+      - run: terraform --version
+      - run: terragrunt --version
 
       # - name: add gpg public key
       #   env:
       #     GPG_PUBLIC_KEY_BINARY_BASE64: ${{ vars.GPG_PUBLIC_KEY_BINARY_BASE64 }}
-      #   run: ${{ github.workspace }}/scripts/add_gpg_public_key.sh
-
-      - uses: hashicorp/setup-terraform@dfe3c3f87815947d99a8997f908cb6525fc44e9e # v4.0.1
-        with:
-          terraform_wrapper: false
-      - run: terraform --version
-
-      - uses: gruntwork-io/terragrunt-action@8c1d96b76d445fd2e41475a3f0b63dcd1d9cc077 # v3.4.1
-        with:
-          tf_path: .
-          tg_version: "latest"
-      - run: terragrunt --version
-
-      - run: aws --version
+      #   run: $GITHUB_WORKSPACE/scripts/add_gpg_public_key.sh
 
       - name: set github token
         if: ${{ inputs.github_environment == 'github' }}
@@ -140,7 +132,8 @@ jobs:
       - name: dump input context (script)
         env:
           CONTEXT_INPUTS: ${{ toJson(inputs) }}
-        run: ${{ github.workspace }}/scripts/dump_input_context.sh
+        run: |
+          "$GITHUB_WORKSPACE/scripts/dump_input_context.sh"
 
       - name: dump all contexts (script)
         if: ${{ inputs.dump_github_context }}
@@ -155,7 +148,8 @@ jobs:
           CONTEXT_STEPS: ${{ toJson(steps) }}
           CONTEXT_STRATEGY: ${{ toJson(strategy) }}
           CONTEXT_VARS: ${{ toJson(vars) }}
-        run: ${{ github.workspace }}/scripts/dump_all_contexts.sh
+        run: |
+          "$GITHUB_WORKSPACE/scripts/dump_all_contexts.sh"
 
       - name: terragrunt plan
         if: ${{ inputs.terragrunt_action == 'plan' }}
@@ -170,7 +164,7 @@ jobs:
       - name: show plan summary
         if: ${{ inputs.terragrunt_action == 'plan' || inputs.terragrunt_action == 'plan destroy' }}
         run: |
-          ${{ github.workspace }}/scripts/show_tg_plan_summary.sh "${{ inputs.terragrunt_action }}"
+          "$GITHUB_WORKSPACE/scripts/show_tg_plan_summary.sh" "${{ inputs.terragrunt_action }}"
 
       - name: terragrunt apply
         if: ${{ inputs.terragrunt_action == 'apply' }}
@@ -187,4 +181,4 @@ jobs:
       - name: show apply summary
         if: ${{ inputs.terragrunt_action == 'apply' || inputs.terragrunt_action == 'destroy' }}
         run: |
-          ${{ github.workspace }}/scripts/show_tg_apply_summary.sh "${{ inputs.terragrunt_action }}"
+          "$GITHUB_WORKSPACE/scripts/show_tg_apply_summary.sh" "${{ inputs.terragrunt_action }}"
