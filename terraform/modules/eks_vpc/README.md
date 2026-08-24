@@ -8,13 +8,13 @@ Terraform module to create the VPC networking components needed for EKS.
 | Name | Version |
 |------|---------|
 | terraform | 1.15.8 |
-| aws | 6.58.0 |
+| aws | 6.60.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | 6.58.0 |
+| aws | 6.60.0 |
 
 ## Modules
 
@@ -24,11 +24,11 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [aws_flow_log.vpc](https://registry.terraform.io/providers/hashicorp/aws/6.58.0/docs/resources/flow_log) | resource |
-| [aws_internet_gateway.igw](https://registry.terraform.io/providers/hashicorp/aws/6.58.0/docs/resources/internet_gateway) | resource |
-| [aws_vpc.vpc](https://registry.terraform.io/providers/hashicorp/aws/6.58.0/docs/resources/vpc) | resource |
-| [aws_availability_zones.available](https://registry.terraform.io/providers/hashicorp/aws/6.58.0/docs/data-sources/availability_zones) | data source |
-| [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/6.58.0/docs/data-sources/region) | data source |
+| [aws_flow_log.vpc](https://registry.terraform.io/providers/hashicorp/aws/6.60.0/docs/resources/flow_log) | resource |
+| [aws_internet_gateway.igw](https://registry.terraform.io/providers/hashicorp/aws/6.60.0/docs/resources/internet_gateway) | resource |
+| [aws_vpc.vpc](https://registry.terraform.io/providers/hashicorp/aws/6.60.0/docs/resources/vpc) | resource |
+| [aws_availability_zones.available](https://registry.terraform.io/providers/hashicorp/aws/6.60.0/docs/data-sources/availability_zones) | data source |
+| [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/6.60.0/docs/data-sources/region) | data source |
 
 ## Inputs
 
