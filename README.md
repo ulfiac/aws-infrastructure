@@ -21,10 +21,7 @@ Bootstrap a new AWS account.
         - ```gpg --list-secret-keys --keyid-format=long```
     7. export GPG public key (see reference links below)
         - ```gpg --export <keyid> | base64 > ./public_key_binary_base64encoded.gpg```
-    8. get the sha256 hash of the file content
-        - ```shasum -a 256 ./public_key_binary_base64encoded.gpg```
-    9. put the sha256 hash into the "add_gpg_public_key.sh" script as the constant named ```EXPECTED_SHA256_BINARY_BASE64```
-    10. add the base64 encoded GPG public key to the repo variable named ```GPG_PUBLIC_KEY_BINARY_BASE64```
+    8. commit the file to ```terraform/modules/user/public_key_binary_base64encoded.gpg```
 2. perform an apply of the root_layer
 3. perform an apply of the account_layer
 4. post
@@ -52,9 +49,7 @@ Bootstrap a new AWS account.
     - https://unix.stackexchange.com/questions/623375/what-is-the-armored-option-for-in-gnupg
     - https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_user_login_profile
     - https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_access_key#pgp_key
-    - https://stackoverflow.com/questions/61096521/how-to-use-gpg-key-in-github-actions
     - https://registry.terraform.io/providers/hashicorp/local/latest/docs/data-sources/file
-    - https://ss64.com/mac/shasum.html
 2. iam access to Billing and Cost Management
     - https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/control-access-billing.html
     - https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/managed-policies.html

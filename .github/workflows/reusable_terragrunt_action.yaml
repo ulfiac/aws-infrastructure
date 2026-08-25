@@ -109,15 +109,8 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - run: pwd
 
-      - run: shasum --version
-      - run: gpg --version
       - run: terraform --version
       - run: terragrunt --version
-
-      # - name: add gpg public key
-      #   env:
-      #     GPG_PUBLIC_KEY_BINARY_BASE64: ${{ vars.GPG_PUBLIC_KEY_BINARY_BASE64 }}
-      #   run: $GITHUB_WORKSPACE/scripts/add_gpg_public_key.sh
 
       - name: set github token
         if: ${{ inputs.github_environment == 'github' }}
