@@ -14,23 +14,50 @@ variable "namespace" {
   type        = string
 }
 
-# variable "enable_public_subnets" {
-#   description = "Enable or disable the creation of public subnets."
-#   type        = bool
-#   default     = true
-# }
+variable "public_cidr_block" {
+  description = "The CIDR block to carve up into public subnets, one per availability zone."
+  type        = string
 
-# variable "enable_private_subnets" {
-#   description = "Enable or disable the creation of private subnets."
-#   type        = bool
-#   default     = true
-# }
+  validation {
+    condition     = can(cidrhost(var.public_cidr_block, 0))
+    error_message = "Must be a valid IPv4 CIDR block format."
+  }
 
-# variable "enable_isolated_subnets" {
-#   description = "Enable or disable the creation of isolated subnets."
-#   type        = bool
-#   default     = true
-# }
+  validation {
+    condition = try(
+      tonumber(split("/", var.public_cidr_block)[1]) >= tonumber(split("/", var.vpc_cidr_block)[1]) &&
+      cidrhost(var.vpc_cidr_block, 0) == cidrhost("${cidrhost(var.public_cidr_block, 0)}/${split("/", var.vpc_cidr_block)[1]}", 0),
+      false
+    )
+    error_message = "public_cidr_block must be contained within vpc_cidr_block."
+  }
+}
+
+variable "public_subnet_mask" {
+  description = "The subnet mask (prefix length) used when carving public_cidr_block into individual public subnets, e.g. 24 for a /24."
+  type        = number
+
+  validation {
+    condition = try(
+      var.public_subnet_mask > tonumber(split("/", var.public_cidr_block)[1]) &&
+      can(cidrsubnet(var.public_cidr_block, var.public_subnet_mask - tonumber(split("/", var.public_cidr_block)[1]), 0)),
+      false
+    )
+    error_message = "Must be a valid prefix length (1-32) that is strictly more specific than public_cidr_block."
+  }
+
+  # AWS allows a public subnet to be between /16 and /28
+  # AWS requires ALB subnets to be /27 or larger (a /28 only has 11 usable IPs after AWS's reserved 5)
+  validation {
+    condition     = var.public_subnet_mask >= 16 && var.public_subnet_mask <= 27
+    error_message = "public_subnet_mask must be between 16 and 27; these subnets are ALB-only and AWS requires /27 or larger for ALB subnets."
+  }
+
+  validation {
+    condition     = try(pow(2, var.public_subnet_mask - tonumber(split("/", var.public_cidr_block)[1])) >= var.availability_zone_count, false)
+    error_message = "public_subnet_mask must be small enough to carve out at least availability_zone_count sub-blocks from public_cidr_block."
+  }
+}
 
 variable "verbose_output" {
   description = "Enable verbose output for debugging purposes."
