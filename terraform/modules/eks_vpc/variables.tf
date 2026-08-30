@@ -2,6 +2,12 @@ variable "availability_zone_count" {
   description = "The number of availability zones to use for the VPC."
   type        = number
   default     = 3
+
+  # these subnets are ALB-only, and AWS requires ALB subnets to span at least 2 AZs
+  validation {
+    condition     = var.availability_zone_count == floor(var.availability_zone_count) && var.availability_zone_count >= 2
+    error_message = "availability_zone_count must be a whole number of at least 2."
+  }
 }
 
 variable "log_bucket_arn" {
