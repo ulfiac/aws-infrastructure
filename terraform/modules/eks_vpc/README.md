@@ -7,14 +7,14 @@ Terraform module to create the VPC networking components needed for EKS.
 
 | Name | Version |
 |------|---------|
-| terraform | 1.15.8 |
-| aws | 6.60.0 |
+| terraform | 1.15.9 |
+| aws | 6.61.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | 6.60.0 |
+| aws | 6.61.0 |
 
 ## Modules
 
@@ -24,15 +24,15 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [aws_flow_log.vpc](https://registry.terraform.io/providers/hashicorp/aws/6.60.0/docs/resources/flow_log) | resource |
-| [aws_internet_gateway.igw](https://registry.terraform.io/providers/hashicorp/aws/6.60.0/docs/resources/internet_gateway) | resource |
-| [aws_route.public_internet_gateway](https://registry.terraform.io/providers/hashicorp/aws/6.60.0/docs/resources/route) | resource |
-| [aws_route_table.public](https://registry.terraform.io/providers/hashicorp/aws/6.60.0/docs/resources/route_table) | resource |
-| [aws_route_table_association.public](https://registry.terraform.io/providers/hashicorp/aws/6.60.0/docs/resources/route_table_association) | resource |
-| [aws_subnet.public](https://registry.terraform.io/providers/hashicorp/aws/6.60.0/docs/resources/subnet) | resource |
-| [aws_vpc.vpc](https://registry.terraform.io/providers/hashicorp/aws/6.60.0/docs/resources/vpc) | resource |
-| [aws_availability_zones.all](https://registry.terraform.io/providers/hashicorp/aws/6.60.0/docs/data-sources/availability_zones) | data source |
-| [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/6.60.0/docs/data-sources/region) | data source |
+| [aws_flow_log.vpc](https://registry.terraform.io/providers/hashicorp/aws/6.61.0/docs/resources/flow_log) | resource |
+| [aws_internet_gateway.igw](https://registry.terraform.io/providers/hashicorp/aws/6.61.0/docs/resources/internet_gateway) | resource |
+| [aws_route.public_internet_gateway](https://registry.terraform.io/providers/hashicorp/aws/6.61.0/docs/resources/route) | resource |
+| [aws_route_table.public](https://registry.terraform.io/providers/hashicorp/aws/6.61.0/docs/resources/route_table) | resource |
+| [aws_route_table_association.public](https://registry.terraform.io/providers/hashicorp/aws/6.61.0/docs/resources/route_table_association) | resource |
+| [aws_subnet.public](https://registry.terraform.io/providers/hashicorp/aws/6.61.0/docs/resources/subnet) | resource |
+| [aws_vpc.vpc](https://registry.terraform.io/providers/hashicorp/aws/6.61.0/docs/resources/vpc) | resource |
+| [aws_availability_zones.all](https://registry.terraform.io/providers/hashicorp/aws/6.61.0/docs/data-sources/availability_zones) | data source |
+| [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/6.61.0/docs/data-sources/region) | data source |
 
 ## Inputs
 
