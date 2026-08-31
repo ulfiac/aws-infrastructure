@@ -5,14 +5,14 @@
 
 | Name | Version |
 |------|---------|
-| terraform | 1.15.8 |
-| aws | 6.60.0 |
+| terraform | 1.15.9 |
+| aws | 6.61.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws | 6.60.0 |
+| aws | 6.61.0 |
 
 ## Modules
 
@@ -22,12 +22,12 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [aws_instance.ec2_instance](https://registry.terraform.io/providers/hashicorp/aws/6.60.0/docs/resources/instance) | resource |
-| [aws_ami.most_recent_al2023](https://registry.terraform.io/providers/hashicorp/aws/6.60.0/docs/data-sources/ami) | data source |
-| [aws_kms_key.ebs](https://registry.terraform.io/providers/hashicorp/aws/6.60.0/docs/data-sources/kms_key) | data source |
-| [aws_security_group.default](https://registry.terraform.io/providers/hashicorp/aws/6.60.0/docs/data-sources/security_group) | data source |
-| [aws_subnets.default](https://registry.terraform.io/providers/hashicorp/aws/6.60.0/docs/data-sources/subnets) | data source |
-| [aws_vpc.default](https://registry.terraform.io/providers/hashicorp/aws/6.60.0/docs/data-sources/vpc) | data source |
+| [aws_instance.ec2_instance](https://registry.terraform.io/providers/hashicorp/aws/6.61.0/docs/resources/instance) | resource |
+| [aws_ami.most_recent_al2023](https://registry.terraform.io/providers/hashicorp/aws/6.61.0/docs/data-sources/ami) | data source |
+| [aws_kms_key.ebs](https://registry.terraform.io/providers/hashicorp/aws/6.61.0/docs/data-sources/kms_key) | data source |
+| [aws_security_group.default](https://registry.terraform.io/providers/hashicorp/aws/6.61.0/docs/data-sources/security_group) | data source |
+| [aws_subnets.default](https://registry.terraform.io/providers/hashicorp/aws/6.61.0/docs/data-sources/subnets) | data source |
+| [aws_vpc.default](https://registry.terraform.io/providers/hashicorp/aws/6.61.0/docs/data-sources/vpc) | data source |
 
 ## Inputs
 
