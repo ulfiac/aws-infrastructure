@@ -5,7 +5,7 @@
 
 | Name | Version |
 |------|---------|
-| terraform | 1.15.9 |
+| terraform | 1.15.8 |
 | archive | 2.8.0 |
 | aws | 6.61.0 |
 | random | 3.9.0 |
