@@ -5,7 +5,7 @@
 
 | Name | Version |
 |------|---------|
-| terraform | 1.15.9 |
+| terraform | 1.15.8 |
 | aws | 6.61.0 |
 
 ## Providers
