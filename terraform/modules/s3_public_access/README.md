@@ -7,7 +7,7 @@ Terraform module to block public access to s3.
 
 | Name | Version |
 |------|---------|
-| terraform | 1.15.8 |
+| terraform | 1.15.9 |
 | aws | 6.61.0 |
 
 ## Providers

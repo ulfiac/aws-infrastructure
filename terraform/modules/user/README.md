@@ -15,7 +15,7 @@ Terraform module to create various resources to enable logging into AWS with a r
 
 | Name | Version |
 |------|---------|
-| terraform | 1.15.8 |
+| terraform | 1.15.9 |
 | aws | 6.61.0 |
 | local | 2.9.0 |
 
