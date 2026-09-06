@@ -1,8 +1,5 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "assignees": [
-    "ulfiac"
-  ],
   "extends": [
     "config:recommended",
     "mergeConfidence:all-badges"
@@ -26,6 +23,9 @@
         "hashicorp/random"
       ],
       "minimumReleaseAge": "7 days",
+      "reviewers": [
+        "ulfiac"
+      ],
       "schedule": [
         "before 9am on monday"
       ]
