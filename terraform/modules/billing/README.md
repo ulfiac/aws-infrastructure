@@ -10,7 +10,7 @@ https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-sns-policy.
 
 | Name | Version |
 |------|---------|
-| terraform | 1.15.8 |
+| terraform | 1.15.9 |
 | aws | 6.61.0 |
 
 ## Providers
